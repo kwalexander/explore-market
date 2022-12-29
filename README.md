@@ -9,6 +9,8 @@ TBD
   * [Test case](#test-case)
     * [Test Dependency](#test-dependency)
   * [Screenshots](#screenshots)
+    * [Workflow](#workflow)
+    * [App](#app)
 
 ## [Deployed URL](#table-of-contents)
 ```
@@ -52,8 +54,10 @@ NOTE: if you are copying this repo all you have to do is run
 ```
 
 # [Screenshots](#table-of-contents)
-## Workflow
+## [Workflow](#table-of-contents)
 ### db Schema
 ![Image at home page](/screenshots/dbschema.png)
 ### User Map
 ![Image at home page](/screenshots/usermap.png)
+
+## [App](#table-of-contents)
