@@ -13,10 +13,25 @@ import {
   Routes,
   Navigate
 } from "react-router-dom";
+import { ApolloProvider } from '@apollo/react-hooks';
+import ApolloClient from 'apollo-boost'
 import ScrollToTop from "./components/ScrollToTop";
 import "./style.css";
 import "./App.css";
  import "bootstrap/dist/css/bootstrap.min.css";
+
+ const client = new ApolloClient({
+  request: (operation) => {
+    const token = localStorage.getItem("id_token");
+
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : "",
+      },
+    });
+  },
+  uri: "/graphql",
+});
 
 function App() {
   const [load, upadateLoad] = useState(true);

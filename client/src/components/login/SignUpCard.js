@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { Card, Form, Button } from 'react-bootstrap'
 import { MdCreate, MdNearbyError} from 'react-icons/md'
-import { checkPassword, validateEmail } from '../../utils/userFilehelpers'
+import { checkPassword, validateEmail } from '../../utils/UserFilehelpers'
 
 function SignUpCard (props) {
   // Create state variables for the fields in the form

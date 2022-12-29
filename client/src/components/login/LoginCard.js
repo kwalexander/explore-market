@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Card, Form, Button } from 'react-bootstrap'
 import { HiLogin } from 'react-icons/hi'
 // Here we import a helper function that will check if the email is valid
-import { checkPassword, validateEmail } from '../../utils/userFilehelpers'
+import { checkPassword, validateEmail } from '../../utils/UserFilehelpers'
 
 function LoginCard (props) {
   // Create state variables for the fields in the form

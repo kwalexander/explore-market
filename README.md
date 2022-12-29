@@ -31,7 +31,17 @@ TBD
 ```
 https://github.com/kwalexander/explore-market.git
 ```
-
+## Tools Used
+  * JavaScript
+  * Node.js
+  * Express
+  * React
+  * Apollo Server
+  * Graphql
+  * Mongodb
+  * Mongoose
+  * Dotenv
+  * Heroku
 ## [Dependency](#table-of-contents)
 ```
 NOTE: if you are copying this repo all you have to do is run 
