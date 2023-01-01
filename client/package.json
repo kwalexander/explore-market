@@ -12,6 +12,7 @@
     "apollo-server-express": "^2.19.2",
     "bootstrap": "^5.2.3",
     "gh-pages": "^4.0.0",
+    "graphql-tag": "^2.12.6",
     "hash-router": "^0.4.0",
     "if-env": "^1.0.4",
     "postcss-loader": "^7.0.2",

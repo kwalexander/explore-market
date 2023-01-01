@@ -45,9 +45,9 @@ const SignUpCard = () => {
     }
 
     setUserFormData({
-      username: '',
-      email: '',
-      password: '',
+      username: "",
+      email: "",
+      password: "",
     });
   };
 
