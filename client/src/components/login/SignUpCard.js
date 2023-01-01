@@ -3,152 +3,113 @@ import { Card, Form, Button } from 'react-bootstrap'
 import { MdCreate, MdNearbyError} from 'react-icons/md'
 import { checkPassword, validateEmail } from '../../utils/UserFilehelpers'
 
-function SignUpCard (props) {
-  // Create state variables for the fields in the form
-  // We are also setting their initial values to an empty string
-  const [email, setEmail] = useState('');
-  const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+import Auth from '../../utils/auth';
+import { useMutation } from '@apollo/react-hooks';
+import { ADD_USER } from '../../utils/mutations';
 
-  const handleInputChange = (e) => {
-    // Getting the value and name of the input which triggered the change
-    const { target } = e;
-    const inputType = target.name;
-    const inputValue = target.value;
 
-    // Based on the input type, we set the state of either email, username, and password
-    if (inputType === 'email') {
-      setEmail(inputValue);
-    } else if (inputType === 'userName') {
-      setUserName(inputValue);
-    } else {
-      setPassword(inputValue);
-    }
+const SignUpCard = () => {
+  // set initial form state
+  const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
+  // set state for form validation
+  const [validated] = useState(false);
+  // set state for alert
+  const [showAlert, setShowAlert] = useState(false);
+  // define mutation for adding a user
+  const [createUser] = useMutation(ADD_USER);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUserFormData({ ...userFormData, [name]: value });
   };
 
-  const handleFormSubmit = (e) => {
-    // Preventing the default behavior of the form submit (which is to refresh the page)
-    e.preventDefault();
-    document.querySelector('#useNameError').style.setProperty("visibility", "hidden");
-    document.querySelector('#emailError').style.setProperty("visibility", "hidden");
-    document.querySelector('#passwordError').style.setProperty("visibility", "hidden");
-     
-    // First we check to see if the email is not valid or if the userName is empty. If so we set an error message to be displayed on the page.
-    if (!validateEmail(email) && !userName) {
-      setErrorMessage('Email or username is invalid');
-      document.querySelector('#useNameError').style.setProperty("visibility", "visible");
-      document.querySelector('#emailError').style.setProperty("visibility", "visible");
-    
-      // We want to exit out of this code block if something is wrong so that the user can correct it
-      return;
-      // Then we check to see if the password is not valid. If so, we set an error message regarding the password.
-    }
-    if(!userName){
-      setErrorMessage('Username is invalid');
-      document.querySelector('#useNameError').style.setProperty("visibility", "visible");
-    }
-    if (!validateEmail(email) || !userName) {
-      setErrorMessage('Email is invalid');
-      document.querySelector('#emailError').style.setProperty("visibility", "visible");
-      // We want to exit out of this code block if something is wrong so that the user can correct it
-      return;
-      // Then we check to see if the password is not valid. If so, we set an error message regarding the password.
-    }
-    if(password == userName || password==userName.replace(/ /g, "")){
-      setErrorMessage(
-        `Password can't be same a username: ${userName}`
-      );
-    }
-    if (!checkPassword(password)) {
-      setErrorMessage(
-        `Choose a more secure password for the account: ${userName}`
-      );
-      document.querySelector('#passwordError').style.setProperty("visibility", "visible");
-      return;
-    }
-    alert(`Hello ${userName}`);
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
 
-    // If everything goes according to plan, we want to clear out the input after a successful registration.
-    setUserName('');
-    setPassword('');
-    setEmail('');
+    // check if form has everything (as per react-bootstrap docs)
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    try {
+      const { data } = await createUser({
+        variables: { ...userFormData }
+      });
+
+      Auth.login(data.addUser.token);
+    } catch (err) {
+      console.error(err);
+      setShowAlert(true);
+    }
+
+    setUserFormData({
+      username: '',
+      email: '',
+      password: '',
+    });
   };
-
-
 
   return (
-    <Card data-test-id={props.signup_title} className='Login-Cards-view'>
-      <Card.Img variant='top' src={props.imgPath} alt='card-img' />
-      <Card.Body>
-        <Card.Title>{props.signup_title}</Card.Title>
-        <Card.Text style={{ textAlign: 'justify' }}></Card.Text>
-        <Form>
-          <div class='form-group'>
-            <label>{props.name} </label>
-            <input 
-            type='text'
-            value={userName} 
-            id="userName" 
-            class="form-control" 
-            name='userName' placeholder='enter full name'
-            onChange={handleInputChange} 
-            required />
-             <div id="useNameError"> 
-            <MdNearbyError /> &nbsp;
-            <small 
-            id="useNamedHelp">User name can't be 
-            <strong > 'empty'</strong> </small>
-           </div>
-          </div>
-          <br></br>
+    <>
+      {/* This is needed for the validation functionality above */}
+      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+        {/* show alert if server response is bad */}
+        {/* <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
+          Something went wrong with your signup!
+        </Alert> */}
 
-          <div class='form-group'>
-            <label>{props.email} </label>
-            <input 
-            type='email' 
-            value={email}
-            class="form-control" 
-            name='email' 
-            placeholder='enter email'
-            onChange={handleInputChange} />
-           <div id="emailError"> 
-            <MdNearbyError /> &nbsp;
-            <small 
-            id="emailHelp">you are missing <strong > '@'</strong></small>
-           </div>
-          </div>
-          <br></br>
-          <div class='form-group'>
-            <label>{props.createPassword}</label>
-            <input 
-            type='password' 
-            class="form-control" 
-            name='password' 
-            value={password}
-            placeholder='enter password'
-            onChange={handleInputChange} />
-            <div id="passwordError"> 
-            <MdNearbyError /> &nbsp;
-            <small 
-            id="passwordHelp">password needs to be between <strong >7 to 16 </strong></small>
-           </div>
-         
-          </div>
-        </Form>
-        {errorMessage && (
-        <div>
-          <p className="error-text">{errorMessage}</p>
-        </div>
-      )}
+        <Form.Group>
+          <Form.Label htmlFor='username'>User name</Form.Label>
+          <Form.Control
+            type='text'
+            placeholder='Your full name'
+            name='username'
+            onChange={handleInputChange}
+            value={userFormData.username}
+            required
+          />
+          <Form.Control.Feedback type='invalid'>Username is required!</Form.Control.Feedback>
+        </Form.Group>
         <br></br>
-        <Button type='button' onClick={handleFormSubmit} href={props.ghLink} target='_blank'>
+        <Form.Group>
+          <Form.Label htmlFor='email'>Email</Form.Label>
+          <Form.Control
+            type='email'
+            placeholder='Your email address'
+            name='email'
+            onChange={handleInputChange}
+            value={userFormData.email}
+            required
+          />
+          <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
+        </Form.Group>
+        <br></br>
+        <Form.Group>
+          <Form.Label htmlFor='password'>Password</Form.Label>
+          <Form.Control
+            type='password'
+            placeholder='Your password'
+            name='password'
+            onChange={handleInputChange}
+            value={userFormData.password}
+            required
+          />
+          <Form.Control.Feedback type='invalid'>Password is required!</Form.Control.Feedback>
+        </Form.Group>
+        <br></br>
+        <Button
+          disabled={!(userFormData.username && userFormData.email && userFormData.password)}
+          type='submit'
+          variant='success'>
           <MdCreate /> &nbsp;
-          {props.SignUpButtonTitle}
+          Crate Account
         </Button>
-         <br></br>
-      </Card.Body>
-    </Card>
-  )
-}
-export default SignUpCard
+      </Form>
+    </>
+  );
+};
+
+export default SignUpCard;
+

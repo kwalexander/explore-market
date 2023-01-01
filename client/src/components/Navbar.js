@@ -1,104 +1,150 @@
-import React, { useState } from "react";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import Container from "react-bootstrap/Container";
-import logo from "../assets/images/avatar.png";
-import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
-import { CgGitFork } from "react-icons/cg";
-
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap'
+import SignUpForm from './login/SignUpCard'
+import LoginForm from './login/LoginCard'
+import Auth from '../utils/auth'
+import logo from '../assets/images/avatar.png'
 
 import {
   AiFillStar,
   AiOutlineHome,
   AiOutlineFundProjectionScreen,
-  AiOutlineUserAdd,
-  AiOutlineAim,
-  
-} from "react-icons/ai";
+  AiOutlineUserAdd
+} from 'react-icons/ai'
 
-import { CgFileDocument } from "react-icons/cg";
+function NavBar () {
+  const [expand, updateExpanded] = useState(false)
+  const [navColour, updateNavbar] = useState(false)
+  // set modal display state
+  const [showModal, setShowModal] = useState(false)
 
-function NavBar() {
-  const [expand, updateExpanded] = useState(false);
-  const [navColour, updateNavbar] = useState(false);
-
-  function scrollHandler() {
+  function scrollHandler () {
     if (window.scrollY >= 20) {
-      updateNavbar(true);
+      updateNavbar(true)
     } else {
-      updateNavbar(false);
+      updateNavbar(false)
     }
   }
 
-  window.addEventListener("scroll", scrollHandler);
+  window.addEventListener('scroll', scrollHandler)
 
   return (
+    <>  
     <Navbar
-      expanded={expand}
-      fixed="top"
-      expand="md"
-      className={navColour ? "sticky" : "navbar"}
+      expanded={showModal}
+      fixed='top'
+      expand='md'
+      className={navColour ? 'sticky' : 'navbar'}
     >
       <Container>
-        <Navbar.Brand data-test-id="app-logo" className="d-flex">
-          <img src={logo}  width="80" height="80" className="navbar-brand" alt="myLogo" />
+        <Navbar.Brand data-test-id='app-logo' className='d-flex'>
+          <img
+            src={logo}
+            width='80'
+            height='80'
+            className='navbar-brand'
+            alt='myLogo'
+          />
         </Navbar.Brand>
-        <Navbar.Toggle
-          aria-controls="responsive-navbar-nav"
-          onClick={() => {
-            updateExpanded(expand ? false : "expanded");
-          }}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </Navbar.Toggle>
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="ms-auto" defaultActiveKey="#home">
-            <Nav.Item>
-              <Nav.Link 
-                data-test-id="nav-home"
-                as={Link} to={"/"} 
-                onClick={() => updateExpanded(false)}>
-                <AiOutlineHome style={{ marginBottom: "2px" }} /> Home
-              </Nav.Link>
-            </Nav.Item>
+        <Navbar.Toggle aria-controls='responsive-navbar-nav' />
 
+        <Navbar.Collapse id='responsive-navbar-nav'>
+          <Nav className='ms-auto' defaultActiveKey='#home'>
 
-            <Nav.Item>
+            {/* if user is logged in show saved books and logout */}
+            {Auth.loggedIn() ? (
+              <>
+                 <Nav.Link
+              data-test-id='nav-home'
+              as={Link}
+              to={'/'}
+              onClick={() => setShowModal(false)}
+            >
+              <AiOutlineHome style={{ marginBottom: '2px' }} /> Dashboard
+            </Nav.Link>
+                <Nav.Link
+                  data-test-id='nav-project'
+                  as={Link}
+                  to='/Search'
+                  onClick={() => setShowModal(false)}
+                >
+                  <AiOutlineFundProjectionScreen
+                    style={{ marginBottom: '2px' }}
+                  />{' '}
+                  Search
+                </Nav.Link>
+
+                <Nav.Link 
+                onClick={Auth.logout}>Logout</Nav.Link>
+              </>
+            ) : (
+              <>
+               <Nav.Link
+              data-test-id='nav-home'
+              as={Link}
+              to={'/'}
+              onClick={() => setShowModal(false)}
+            >
+              <AiOutlineHome style={{ marginBottom: '2px' }} /> Home
+            </Nav.Link>
               <Nav.Link
-                data-test-id="nav-project"
-                as={Link}
-                to="/Search"
-                onClick={() => updateExpanded(false)}
-              >
-                <AiOutlineFundProjectionScreen
-                  style={{ marginBottom: "2px" }}
-                />{" "}
-                Search
+                  data-test-id='nav-project'
+                  as={Link}
+                  to='/Search'
+                  onClick={() => setShowModal(false)}
+                >
+                  <AiOutlineFundProjectionScreen
+                    style={{ marginBottom: '2px' }}
+                  />{' '}
+                  Search
+                </Nav.Link>
+                <Nav.Link onClick={() => setShowModal(true)}>
+                <AiOutlineUserAdd style={{ fontSize: '1.2em' }} />{' '}
+                <AiFillStar style={{ fontSize: '1.1em' }} />
               </Nav.Link>
-            </Nav.Item>
-
-
-
-            <Nav.Item className="fork-btn">
-              <Button
-                data-test-id="nav-gitHub-link"
-                as={Link}
-                to="/login"
-                onClick={() => updateExpanded(false)}
-              >
-                <AiOutlineUserAdd style={{ fontSize: "1.2em" }} />{" "}
-                <AiFillStar style={{ fontSize: "1.1em" }} />
-              </Button>
-            </Nav.Item>
+              </>
+            
+            )}
+            {/* </Nav.Items> */}
           </Nav>
         </Navbar.Collapse>
       </Container>
-     
     </Navbar>
+       {/* set modal data up */}
+       <Modal
+       size='lg'
+       show={showModal}
+       onHide={() => setShowModal(false)}
+       aria-labelledby='signup-modal'>
+       {/* tab container to do either signup or login component */}
+       <Tab.Container defaultActiveKey='login'>
+         <Modal.Header closeButton>
+           <Modal.Title id='signup-modal'>
+             <Nav variant='pills'>
+    
+                 <Nav.Link eventKey='login'>Login</Nav.Link>
+                {/* </Nav.Items> */}
+    
+                 <Nav.Link eventKey='signup'>Sign Up</Nav.Link>
+                {/* </Nav.Items> */}
+             </Nav>
+           </Modal.Title>
+         </Modal.Header>
+         <Modal.Body>
+           <Tab.Content>
+             <Tab.Pane eventKey='login'>
+               <LoginForm handleModalClose={() => setShowModal(false)} />
+             </Tab.Pane>
+             <Tab.Pane eventKey='signup'>
+               <SignUpForm handleModalClose={() => setShowModal(false)} />
+             </Tab.Pane>
+           </Tab.Content>
+         </Modal.Body>
+       </Tab.Container>
+     </Modal>
+  </>   
   );
-}
+};
 
-export default NavBar;
+export default NavBar
