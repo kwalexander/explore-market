@@ -3,37 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@react-pdf/renderer": "^3.0.1",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^13.5.0",
-    "bootstrap": "^5.2.3",
-    "gh-pages": "^4.0.0",
-    "hash-router": "^0.4.0",
-    "postcss-loader": "^7.0.2",
-    "react": "^17.0.2",
-    "react-bootstrap": "^2.7.0",
-    "react-bootstrap-typeahead": "^6.0.0",
-    "react-css-components": "^1.0.1",
-    "react-dom": "^17.0.2",
-    "react-github-calendar": "^3.4.0",
-    "react-icons": "^4.7.1",
-    "react-parallax-tilt": "^1.7.76",
-    "react-pdf": "^6.2.0",
-    "react-router-dom": "^6.4.5",
-    "react-scripts": "5.0.1",
-    "react-tsparticles": "^2.6.0",
-    "typewriter-effect": "^2.19.0",
-    "web-vitals": "^2.1.4",
+    "@apollo/client": "^3.7.3",
     "@apollo/react-hooks": "^4.0.0",
     "apollo-server-express": "^2.19.2",
-    "if-env": "^1.0.4"
+    "graphql-hooks": "^6.0.5",
+    "graphql-tag": "^2.12.6",
+    "graphql-ws": "^5.11.2",
+    "if-env": "^1.0.4",
+    "jwt-decode": "^3.1.2"
   },
   "scripts": {
-    "startDev": "react-scripts start",
-    "predeploy": "npm run build",
-    "build": "react-scripts build",
-    "eject": "react-scripts eject",
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "cd server && npm start",
     "start:dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
@@ -60,6 +39,5 @@
   },
   "devDependencies": {
     "concurrently": "^5.2.0"
-}
-  
+  }
 }

@@ -57,6 +57,8 @@ NOTE: if you are copying this repo all you have to do is run
     9. npm i react-github-calendar
     10.npm i react-pdf
     11.npm i hash-router
+    12. npm i jwt-decode
+    13. npm i apollo-boost
 
     Test:
     1. npm i cypress (TO-DO)
