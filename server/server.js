@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+
 //import apollo server
 const { ApolloServer } = require('apollo-server-express');
 // import typeDefs and resolvers
@@ -28,6 +29,7 @@ server.applyMiddleware({ app });
 //middleware parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 
 // if we're in production, serve client/build as static assets
 if (process.env.NODE_ENV === 'production') {

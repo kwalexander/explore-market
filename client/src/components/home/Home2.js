@@ -11,16 +11,16 @@ function Home2 () {
     <Container fluid className='home-skills-section' id='skills'>
       <Container>
         <Row>
-          <Col data-test-id="home-page-introduce" md={8} className='home-skills-description'>
+          <Col data-testid="home-page-introduce" md={8} className='home-skills-description'>
             <h1  style={{ fontSize: '2.6em' }}>
               LET Us <span className='purple'> INTRODUCE </span> Ourselves
             </h1>
             <ul className='home-skills-social-links list-group'>
              
-              <li data-test-id="connect-via-icons" id='dev-team' class="list-group-item">
+              <li data-testid="connect-via-icons" id='dev-team' class="list-group-item">
               <p>Kabir Faisal</p>
                 <a
-                  data-test-id="connect-via-gitHub"
+                  data-testid="connect-via-gitHub"
                   href='https://github.com/kabirfaisal1'
                   target='_blank'
                   rel='noreferrer'
@@ -29,7 +29,7 @@ function Home2 () {
                   <AiFillGithub />
                 </a>
                  <a
-                   data-test-id="connect-via-linkedin"
+                   data-testid="connect-via-linkedin"
                   href='http://www.linkedin.com/in/kabirfaisal89'
                   target='_blank'
                   rel='noreferrer'
@@ -38,10 +38,10 @@ function Home2 () {
                   <FaLinkedinIn />
                 </a>
               </li>
-             <li data-test-id= "connect-via-icons" id='dev-team' class="list-group-item">
+             <li data-testid= "connect-via-icons" id='dev-team' class="list-group-item">
              <p>Dev 2</p>
                 <a
-                  data-test-id="connect-via-gitHub"
+                  data-testid="connect-via-gitHub"
                   href='https://github.com/kabirfaisal1'
                   target='_blank'
                   rel='noreferrer'
@@ -50,7 +50,7 @@ function Home2 () {
                   <AiFillGithub />
                 </a>
               <a
-                   data-test-id="connect-via-linkedin"
+                   data-testid="connect-via-linkedin"
                   href='http://www.linkedin.com/in/kabirfaisal89'
                   target='_blank'
                   rel='noreferrer'
@@ -59,10 +59,10 @@ function Home2 () {
                   <FaLinkedinIn />
                 </a>
               </li>
-            <li data-test-id= "connect-via-icons" id='dev-team' class="list-group-item">
+            <li data-testid= "connect-via-icons" id='dev-team' class="list-group-item">
             <p>Dev 3</p>
                 <a
-                  data-test-id="connect-via-gitHub"
+                  data-testid="connect-via-gitHub"
                   href='https://github.com/kabirfaisal1'
                   target='_blank'
                   rel='noreferrer'
@@ -71,7 +71,7 @@ function Home2 () {
                   <AiFillGithub />
                 </a>
              <a
-                   data-test-id="connect-via-linkedin"
+                   data-testid="connect-via-linkedin"
                   href='http://www.linkedin.com/in/kabirfaisal89'
                   target='_blank'
                   rel='noreferrer'
@@ -80,10 +80,10 @@ function Home2 () {
                   <FaLinkedinIn />
                 </a>
               </li>
-            <li data-test-id= "connect-via-icons" className='dev-team'>
+            <li data-testid= "connect-via-icons" className='dev-team'>
             <p>Dev 4</p>
                 <a
-                  data-test-id="connect-via-gitHub"
+                  data-testid="connect-via-gitHub"
                   href='https://github.com/kabirfaisal1'
                   target='_blank'
                   rel='noreferrer'
@@ -92,7 +92,7 @@ function Home2 () {
                   <AiFillGithub />
                 </a>
              <a
-                   data-test-id="connect-via-linkedin"
+                   data-testid="connect-via-linkedin"
                   href='http://www.linkedin.com/in/kabirfaisal89'
                   target='_blank'
                   rel='noreferrer'
@@ -104,7 +104,7 @@ function Home2 () {
             
             </ul>
           </Col>
-          <Col data-test-id="home-page-avtar" md={4} id='myAvtar'>
+          <Col data-testid="home-page-avtar" md={4} id='myAvtar'>
             <Tilt>
               <img
                 src={myAvtar}

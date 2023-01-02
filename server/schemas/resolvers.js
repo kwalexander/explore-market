@@ -64,11 +64,11 @@ const resolvers = {
             }
             throw new AuthenticationError('You need to be logged in!')
         },
-        removeTravel: async (parent, { travelid }, context) => {
+        removeTravel: async (parent, { travelID }, context) => {
             if (context.user) {
                 const updatedUser = await User.findOneAndUpdate(
                     {_id: context.user._id},
-                    { $pull: { saveProduct: { travelid: travelid } } },
+                    { $pull: { saveProduct: { travelID: travelID } } },
                     { new: true }
                 )
                 return updatedUser;

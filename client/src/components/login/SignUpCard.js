@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
-import { Card, Form, Button } from 'react-bootstrap'
-import { MdCreate, MdNearbyError} from 'react-icons/md'
-import { checkPassword, validateEmail } from '../../utils/UserFilehelpers'
+import { Form, Button } from 'react-bootstrap'
+import { MdCreate} from 'react-icons/md'
+// import { checkPassword, validateEmail } from '../../utils/UserFilehelpers'
 
 import Auth from '../../utils/auth';
 import { useMutation } from '@apollo/react-hooks';
@@ -10,7 +10,7 @@ import { ADD_USER } from '../../utils/mutations';
 
 const SignUpCard = () => {
   // set initial form state
-  const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
+  const [userFormData, setUserFormData] = useState({username: "", email: "", password: "" });
   // set state for form validation
   const [validated] = useState(false);
   // set state for alert
@@ -61,8 +61,9 @@ const SignUpCard = () => {
         </Alert> */}
 
         <Form.Group>
-          <Form.Label htmlFor='username'>User name</Form.Label>
+          <Form.Label htmlFor="username">User name</Form.Label>
           <Form.Control
+            data-testid="signup-name-input"
             type='text'
             placeholder='Your full name'
             name='username'
@@ -76,6 +77,7 @@ const SignUpCard = () => {
         <Form.Group>
           <Form.Label htmlFor='email'>Email</Form.Label>
           <Form.Control
+           data-testid="signup-email-input"
             type='email'
             placeholder='Your email address'
             name='email'
@@ -89,6 +91,7 @@ const SignUpCard = () => {
         <Form.Group>
           <Form.Label htmlFor='password'>Password</Form.Label>
           <Form.Control
+            data-testid="signup-password-input"
             type='password'
             placeholder='Your password'
             name='password'
@@ -100,6 +103,7 @@ const SignUpCard = () => {
         </Form.Group>
         <br></br>
         <Button
+           data-testid="signup-form-submit-button"
           disabled={!(userFormData.username && userFormData.email && userFormData.password)}
           type='submit'
           variant='success'>

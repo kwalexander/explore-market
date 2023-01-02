@@ -54,6 +54,7 @@ const LoginCard = () => {
         <Form.Group>
           <Form.Label htmlFor='email'>Email</Form.Label>
           <Form.Control
+           data-testid="input-email-textbox"
             type='email'
             placeholder='Your email'
             name='email'
@@ -68,6 +69,7 @@ const LoginCard = () => {
         <Form.Group>
           <Form.Label htmlFor='password'>Password</Form.Label>
           <Form.Control
+           data-testid="input-password-textbox"
             type='password'
             placeholder='Your password'
             name='password'
@@ -80,6 +82,7 @@ const LoginCard = () => {
         </Form.Group>
         <br></br>
         <Button
+          data-testid="login-form-submit-button"
           disabled={!(userFormData.email && userFormData.password)}
           type='submit'
           variant='success'>

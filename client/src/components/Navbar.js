@@ -14,7 +14,6 @@ import {
 } from 'react-icons/ai'
 
 function NavBar () {
-  const [expand, updateExpanded] = useState(false)
   const [navColour, updateNavbar] = useState(false)
   // set modal display state
   const [showModal, setShowModal] = useState(false)
@@ -38,7 +37,7 @@ function NavBar () {
       className={navColour ? 'sticky' : 'navbar'}
     >
       <Container>
-        <Navbar.Brand data-test-id='app-logo' className='d-flex'>
+        <Navbar.Brand data-testid='app-logo' className='d-flex'>
           <img
             src={logo}
             width='80'
@@ -56,7 +55,7 @@ function NavBar () {
             {Auth.loggedIn() ? (
               <>
                  <Nav.Link
-              data-test-id='nav-home'
+              data-testid='nav-Dashboard'
               as={Link}
               to={'/'}
               onClick={() => setShowModal(false)}
@@ -64,7 +63,7 @@ function NavBar () {
               <AiOutlineHome style={{ marginBottom: '2px' }} /> Dashboard
             </Nav.Link>
                 <Nav.Link
-                  data-test-id='nav-project'
+                  data-testid='nav-search'
                   as={Link}
                   to='/Search'
                   onClick={() => setShowModal(false)}
@@ -75,13 +74,13 @@ function NavBar () {
                   Search
                 </Nav.Link>
 
-                <Nav.Link 
+                <Nav.Link  data-testid='nav-logout'
                 onClick={Auth.logout}>Logout</Nav.Link>
               </>
             ) : (
               <>
-               <Nav.Link
-              data-test-id='nav-home'
+              <Nav.Link
+              data-testid='nav-home'
               as={Link}
               to={'/'}
               onClick={() => setShowModal(false)}
@@ -89,7 +88,7 @@ function NavBar () {
               <AiOutlineHome style={{ marginBottom: '2px' }} /> Home
             </Nav.Link>
               <Nav.Link
-                  data-test-id='nav-project'
+                  data-testid='nav-search'
                   as={Link}
                   to='/Search'
                   onClick={() => setShowModal(false)}
@@ -99,20 +98,21 @@ function NavBar () {
                   />{' '}
                   Search
                 </Nav.Link>
-                <Nav.Link onClick={() => setShowModal(true)}>
+                <Nav.Link data-testid="login_or_signUp"onClick={() => setShowModal(true)}>
                 <AiOutlineUserAdd style={{ fontSize: '1.2em' }} />{' '}
                 <AiFillStar style={{ fontSize: '1.1em' }} />
               </Nav.Link>
               </>
             
             )}
-            {/* </Nav.Items> */}
+            
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
        {/* set modal data up */}
        <Modal
+       data-testid="popUp-login-signUp"
        size='lg'
        show={showModal}
        onHide={() => setShowModal(false)}
@@ -123,11 +123,11 @@ function NavBar () {
            <Modal.Title id='signup-modal'>
              <Nav variant='pills'>
     
-                 <Nav.Link eventKey='login'>Login</Nav.Link>
-                {/* </Nav.Items> */}
+                 <Nav.Link data-testid="login-module" eventKey='login'>Login</Nav.Link>
+                
     
-                 <Nav.Link eventKey='signup'>Sign Up</Nav.Link>
-                {/* </Nav.Items> */}
+                 <Nav.Link data-testid="sign-module" eventKey='signup'>Sign Up</Nav.Link>
+                
              </Nav>
            </Modal.Title>
          </Modal.Header>
