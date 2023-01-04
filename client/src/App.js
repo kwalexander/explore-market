@@ -6,7 +6,6 @@ import Footer from "./components/Footer";
 
 import {
  BrowserRouter as Router,
- 
   Route,
   Routes,
   Navigate

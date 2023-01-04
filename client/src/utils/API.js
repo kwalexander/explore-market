@@ -74,7 +74,7 @@ export const getMe = (token) => {
   };
   
   // make a search to  products api
-  export const searchProduct = (query) => {
+  export const searchProduct = (prodcutData, token) => {
     //return fetch(`https://www.googleapis.com/products/v1/volumes?q=${query}`);
     //return fetch(`TO-DO`);
   };
