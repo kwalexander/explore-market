@@ -5,13 +5,22 @@ import SignUpForm from './login/SignUpCard'
 import LoginForm from './login/LoginCard'
 import Auth from '../utils/auth'
 import logo from '../assets/images/avatar.png'
-
+//Testing
 import {
   AiFillStar,
   AiOutlineHome,
-  AiOutlineFundProjectionScreen,
-  AiOutlineUserAdd
+  AiOutlineUserAdd,
+  AiOutlineContacts
 } from 'react-icons/ai'
+
+import {
+  SiYourtraveldottv,
+  SiProducthunt
+} from 'react-icons/si'
+
+import {
+  IoMdLogOut
+} from 'react-icons/io'
 
 function NavBar () {
   const [navColour, updateNavbar] = useState(false)
@@ -55,27 +64,21 @@ function NavBar () {
             {Auth.loggedIn() ? (
               <>
                  <Nav.Link
-              data-testid='nav-Dashboard'
+              data-testid='nav-dashboard'
               as={Link}
               to={'/'}
               onClick={() => setShowModal(false)}
             >
               <AiOutlineHome style={{ marginBottom: '2px' }} /> Dashboard
             </Nav.Link>
-                <Nav.Link
-                  data-testid='nav-search'
-                  as={Link}
-                  to='/Search'
-                  onClick={() => setShowModal(false)}
-                >
-                  <AiOutlineFundProjectionScreen
-                    style={{ marginBottom: '2px' }}
-                  />{' '}
-                  Search
-                </Nav.Link>
+            
+            <Nav.Link
+              data-testid='nav-logout'
+              onClick={Auth.logout}>
+            
+              <IoMdLogOut style={{ marginBottom: '2px' }} /> Logout
+            </Nav.Link>
 
-                <Nav.Link  data-testid='nav-logout'
-                onClick={Auth.logout}>Logout</Nav.Link>
               </>
             ) : (
               <>
@@ -87,17 +90,44 @@ function NavBar () {
             >
               <AiOutlineHome style={{ marginBottom: '2px' }} /> Home
             </Nav.Link>
+              
               <Nav.Link
-                  data-testid='nav-search'
+                  data-testid='nav-product'
                   as={Link}
-                  to='/Search'
+                  to='/Product'
                   onClick={() => setShowModal(false)}
                 >
-                  <AiOutlineFundProjectionScreen
+                  <SiProducthunt
                     style={{ marginBottom: '2px' }}
                   />{' '}
-                  Search
+                  Product
                 </Nav.Link>
+              <Nav.Link
+                  data-testid='nav-product'
+                  as={Link}
+                  to='/Travel'
+                  onClick={() => setShowModal(false)}
+                >
+                  <SiYourtraveldottv
+                    style={{ marginBottom: '2px' }}
+                  />{' '}
+                  Travel
+                </Nav.Link>
+             
+              <Nav.Link
+                  data-testid='nav-product'
+                  as={Link}
+                  to='/Contact'
+                  onClick={() => setShowModal(false)}
+                >
+                  <AiOutlineContacts
+                    style={{ marginBottom: '2px' }}
+                  />{' '}
+                  Contact
+                </Nav.Link>
+
+
+
                 <Nav.Link data-testid="login_or_signUp"onClick={() => setShowModal(true)}>
                 <AiOutlineUserAdd style={{ fontSize: '1.2em' }} />{' '}
                 <AiFillStar style={{ fontSize: '1.1em' }} />
