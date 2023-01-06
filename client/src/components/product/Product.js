@@ -8,10 +8,10 @@ import Particle from "../Particle";
 
 function Product() {
   return (
-    <Container fluid className="product-section">
+    <Container fluid className="home-section">
       <Particle />
       <Container>
-        <h1 className="product-heading">
+        <h1 className="home-section">
           Lets find <strong className="purple">products </strong>
         </h1>
         <p style={{ color: "white" }}>
@@ -20,10 +20,11 @@ function Product() {
         <Row data-test-id="product-cards" style={{ justifyContent: "center", paddingBottom: "10px" }}>
           <Col md={4} className="product-card">
             <ProductCards
+              imgPath=""
               isBlog={false}
               title="JavaScript Quiz"
               description="Worked on a application that build a timed coding quiz with multiple-choice questions for javascript. This app will run in the browser, and will feature dynamically updated HTML and CSS powered by JavaScript code and store users score in localStorage."
-              ghLink="https://github.com/kabirfaisal1/JavaScriptQuiz.git"
+              price="https://github.com/kabirfaisal1/JavaScriptQuiz.git"
               siteLink="https://kabirfaisal1.github.io/JavaScriptQuiz/"   
             />
           </Col>

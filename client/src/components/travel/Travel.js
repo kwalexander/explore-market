@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import TravelCards from "../search/TravelCards";
+import TravelCards  from "../search/SearchCards";
 import Particle from "../Particle";
 
 
@@ -8,15 +8,13 @@ import Particle from "../Particle";
 
 function Travel() {
   return (
-    <Container fluid className="Travel-section">
+    <Container fluid className="home-section">
       <Particle />
       <Container>
-        <h1 className="Travel-heading">
+        <h1 className="home-section">
           Lets find <strong className="purple">Travels </strong>
         </h1>
-        <Form>
-          dsvsdv
-        </Form>
+        
         <p style={{ color: "white" }}>
           Here are Travel results of your search .
         </p>
@@ -24,6 +22,7 @@ function Travel() {
      
           <Col md={4} className="Travel-card">
             <TravelCards
+              imgPath=""
               isBlog={false}
               title="JavaScript Quiz"
               description="Worked on a application that build a timed coding quiz with multiple-choice questions for javascript. This app will run in the browser, and will feature dynamically updated HTML and CSS powered by JavaScript code and store users score in localStorage."
