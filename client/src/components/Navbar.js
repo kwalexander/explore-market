@@ -9,7 +9,6 @@ import logo from '../assets/images/avatar.png'
 import {
   AiFillStar,
   AiOutlineHome,
-  AiOutlineFundProjectionScreen,
   AiOutlineUserAdd,
   AiOutlineContacts
 } from 'react-icons/ai'
