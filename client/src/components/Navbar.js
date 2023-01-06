@@ -5,13 +5,23 @@ import SignUpForm from './login/SignUpCard'
 import LoginForm from './login/LoginCard'
 import Auth from '../utils/auth'
 import logo from '../assets/images/avatar.png'
-
+//Testing
 import {
   AiFillStar,
   AiOutlineHome,
   AiOutlineFundProjectionScreen,
-  AiOutlineUserAdd
+  AiOutlineUserAdd,
+  AiOutlineContacts
 } from 'react-icons/ai'
+
+import {
+  SiYourtraveldottv,
+  SiProducthunt
+} from 'react-icons/si'
+
+import {
+  GrContact
+} from 'react-icons/gr'
 
 function NavBar () {
   const [navColour, updateNavbar] = useState(false)
@@ -87,16 +97,40 @@ function NavBar () {
             >
               <AiOutlineHome style={{ marginBottom: '2px' }} /> Home
             </Nav.Link>
+              
               <Nav.Link
-                  data-testid='nav-search'
+                  data-testid='nav-product'
                   as={Link}
-                  to='/Search'
+                  to='/Product'
                   onClick={() => setShowModal(false)}
                 >
-                  <AiOutlineFundProjectionScreen
+                  <SiProducthunt
                     style={{ marginBottom: '2px' }}
                   />{' '}
-                  Search
+                  Product
+                </Nav.Link>
+              <Nav.Link
+                  data-testid='nav-product'
+                  as={Link}
+                  to='/Travel'
+                  onClick={() => setShowModal(false)}
+                >
+                  <SiYourtraveldottv
+                    style={{ marginBottom: '2px' }}
+                  />{' '}
+                  Travel
+                </Nav.Link>
+             
+              <Nav.Link
+                  data-testid='nav-product'
+                  as={Link}
+                  to='/Contact'
+                  onClick={() => setShowModal(false)}
+                >
+                  <AiOutlineContacts
+                    style={{ marginBottom: '2px' }}
+                  />{' '}
+                  Contact
                 </Nav.Link>
                 <Nav.Link data-testid="login_or_signUp"onClick={() => setShowModal(true)}>
                 <AiOutlineUserAdd style={{ fontSize: '1.2em' }} />{' '}

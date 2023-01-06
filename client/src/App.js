@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Preloader from "./components/Pre";
 import Navbar from "./components/Navbar";
 import Home from "./components/home/Home";
+import Product from "./components/product/Product";
 import Footer from "./components/Footer";
 
 import {
@@ -48,6 +49,8 @@ function App() {
          <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/product" element={<Product />} />
+          <Route path="/Travel" element={<Product />} />
 
           <Route path="*" element={<Navigate to="/"/>} />
         </Routes>
