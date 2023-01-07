@@ -1,4 +1,4 @@
-const { User, Product, Travel } = require('../models');
+const { User } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
 
@@ -32,7 +32,7 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
-        saveProduct: async (parent, { product }, context) => {
+        saveProduct: async (parent, product, context) => {
             if (context.user) {
                 const updatedUser = await User.findOneAndUpdate(
                     { _id: context.user._id },
@@ -47,7 +47,7 @@ const resolvers = {
             if (context.user) {
                 const updatedUser = await User.findOneAndUpdate(
                     {_id: context.user._id},
-                    { $pull: { saveProduct: { productID: productID } } },
+                    { $pull: { saveProduct: product } },
                     { new: true }
                 )
                 return updatedUser;
@@ -57,7 +57,7 @@ const resolvers = {
             if (context.user) {
                 const updatedUser = await User.findOneAndUpdate(
                     { _id: context.user._id },
-                    { $addToSet: {saveProduct: travel} },
+                    { $addToSet: {saveTravel: travel} },
                     { new: true }
                 )
                 return updatedUser;
@@ -68,7 +68,7 @@ const resolvers = {
             if (context.user) {
                 const updatedUser = await User.findOneAndUpdate(
                     {_id: context.user._id},
-                    { $pull: { saveProduct: { travelID: travelID } } },
+                    { $pull: { saveTravel: travelID  } },
                     { new: true }
                 )
                 return updatedUser;

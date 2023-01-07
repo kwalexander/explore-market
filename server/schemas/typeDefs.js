@@ -1,9 +1,10 @@
 const { gql } = require('apollo-server-express');
 
 // typeDefs
+//PRODUCT MIght not need description
 const typeDefs = gql`
     type Product {
-        _id: productID
+        _id: ID!
         title: [String]
         description: String
         productUPC: String
@@ -13,7 +14,7 @@ const typeDefs = gql`
    
     }
     type Travel {
-        _id: travelID
+        _id: ID!
         leavingFrom: String
         goingTo: String
         airWays: String
@@ -56,7 +57,7 @@ const typeDefs = gql`
         saveProduct(product: SavedProductInput): User
         removeProduct(productID: String!): User
         saveTravel(travel: SavedTravelInput): User
-        removeTravel(travelID: String!): User
+        removeTravel(_id: String!): User
 }
 `;
 
