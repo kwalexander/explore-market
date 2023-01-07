@@ -42,7 +42,6 @@ function SearchCards(props) {
                     {"Site Link"}
                   </Button>
                 )}   
-            
         </Card.Body>
       </Card>
     </>
