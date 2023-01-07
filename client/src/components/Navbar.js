@@ -23,6 +23,7 @@ import {
 } from 'react-icons/io'
 
 function NavBar () {
+  const [expand, updateExpanded] = useState(false);
   const [navColour, updateNavbar] = useState(false)
   // set modal display state
   const [showModal, setShowModal] = useState(false)
@@ -55,7 +56,16 @@ function NavBar () {
             alt='myLogo'
           />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+        <Navbar.Toggle aria-controls='responsive-navbar-nav'
+          onClick={() => {
+            updateExpanded(expand ? false : "expanded");
+          }}
+        >
+
+<span></span>
+          <span></span>
+          <span></span>
+        </Navbar.Toggle>
 
         <Navbar.Collapse id='responsive-navbar-nav'>
           <Nav className='ms-auto' defaultActiveKey='#home'>

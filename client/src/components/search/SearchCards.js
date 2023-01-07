@@ -1,10 +1,9 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup"
 import Button from "react-bootstrap/Button";
 import { CgWebsite } from "react-icons/cg";
 import { MdFavorite } from "react-icons/md";
-import Auth from '../../utils/auth'
+
 
 
 function SearchCards(props) {

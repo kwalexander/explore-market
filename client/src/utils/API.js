@@ -1,3 +1,4 @@
+import data from './data'
 // route to get logged in user's info (needs the token)
 export const getMe = token => {
   return fetch('/api/users/me', {
@@ -74,7 +75,8 @@ export const deleteTravel = (travelID, token) => {
 
 // make a search to  products api
 export const searchProduct = (query) => {
-  return fetch(`https://www.googleapis.com/products/v1/volumes?q=${query}`)
+  return data;
+  //fetch(`https://www.googleapis.com/products/v1/volumes?q=${query}`)
   //return fetch(`TO-DO`);
 }
 

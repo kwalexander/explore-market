@@ -14,9 +14,9 @@ import {
 } from "react-router-dom";
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost'
-import "./style.css";
-import "./App.css";
+
 import "bootstrap/dist/css/bootstrap.min.css";
+import ScrollToTop from "./components/ScrollToTop";
 
  const client = new ApolloClient({
   request: (operation) => {
@@ -48,6 +48,7 @@ function App() {
       <Preloader load={load} />
       <div className="App" id={load ? "no-scroll" : "scroll"}>
          <Navbar />
+         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product" element={<Product />} />

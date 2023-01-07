@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import {Container, Col, Form, Button, Row } from 'react-bootstrap';
-import Auth from '../../utils/auth';
-import ProductCards  from "../search/SearchCards";
-import { searchProduct } from '../../utils/API';
-import { saveProductIds, getSavedProductIds } from '../../utils/localStorage';
-import { useMutation } from '@apollo/react-hooks';
-import {SAVE_PRODUCT} from '../../utils/mutations';
-import { GET_ME } from '../../utils/queries';
-import Particle from "../Particle";
+import React, { useState, useEffect } from 'react'
+import { Container, Col, Form, Button, Row } from 'react-bootstrap'
+import Auth from '../../utils/auth'
+import ProductCards from '../search/SearchCards'
+import { searchProduct } from '../../utils/API'
+import { saveProductIds, getSavedProductIds } from '../../utils/localStorage'
+import { useMutation } from '@apollo/react-hooks'
+import { SAVE_PRODUCT } from '../../utils/mutations'
+import { GET_ME } from '../../utils/queries'
+import Particle from '../Particle'
 
-function Product(){
+function Product () {
   // create state for holding returned google api data
-  const [searchedProducts, setSearchedProducts] = useState([]);
+  const [searchedProducts, setSearchedProducts] = useState([])
   // create state for holding our search field data
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState('')
 
   // create state to hold saved productId values
-  const [savedProductIds, setSavedProductIds] = useState(getSavedProductIds());
+  const [savedProductIds, setSavedProductIds] = useState(getSavedProductIds())
 
   // define the save product function from the mutation
   const [saveProduct] = useMutation(SAVE_PRODUCT)
@@ -24,139 +24,157 @@ function Product(){
   // set up useEffect hook to save `savedProductIds` list to localStorage on component unmount
   // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
   useEffect(() => {
-    return () => saveProductIds(savedProductIds);
-  });
+    return () => saveProductIds(savedProductIds)
+  })
 
   // create method to search for products and set state on form submit
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
+  const handleFormSubmit = async event => {
+    event.preventDefault()
 
     if (!searchInput) {
-      return false;
+      return false
     }
 
     try {
-      const response = await searchProduct(searchInput);
+      const response = await searchProduct(searchInput)
 
       if (!response.ok) {
-        throw new Error('something went wrong!');
+        throw new Error('something went wrong!')
       }
 
-      const { items } = await response.json();
+      const { items } = await response.json()
 
-      const productData = items.map((product) => ({
+      const productData = items.map(product => ({
         productId: product.id,
-        title: product.volumeInfo.title,
-        price: product.volumeInfo.infoLink,
-        image: product.volumeInfo.imageLinks?.thumbnail || '',
-      }));
+        title: product.title,
+        price: product.price,
+        image: product.img || ''
+      }))
 
-      setSearchedProducts(productData);
-      setSearchInput('');
+      setSearchedProducts(productData)
+      setSearchInput('')
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
-  };
+  }
 
   // create function to handle saving a product to our database
-  const handleSaveProduct = async (productId) => {
+  const handleSaveProduct = async productId => {
     // find the product in `searchedProducts` state by the matching id
-    const productToSave = searchedProducts.find((product) => product.productId === productId);
+    const productToSave = searchedProducts.find(
+      product => product.productId === productId
+    )
 
     // get token
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    const token = Auth.loggedIn() ? Auth.getToken() : null
 
     if (!token) {
-      return false;
+      return false
     }
 
     try {
       await saveProduct({
-        variables: {product: productToSave},
+        variables: { product: productToSave },
         update: cache => {
-          const {me} = cache.readQuery({ query: GET_ME });
+          const { me } = cache.readQuery({ query: GET_ME })
           // console.log(me)
           // console.log(me.savedProducts)
-          cache.writeQuery({ query: GET_ME , data: {me: { ...me, savedProducts: [...me.savedProducts, productToSave] } } })
+          cache.writeQuery({
+            query: GET_ME,
+            data: {
+              me: { ...me, savedProducts: [...me.savedProducts, productToSave] }
+            }
+          })
         }
-      });
+      })
 
       // if product successfully saves to user's account, save product id to state
-      setSavedProductIds([...savedProductIds, productToSave.productId]);
+      setSavedProductIds([...savedProductIds, productToSave.productId])
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
-  };
+  }
 
   return (
     <>
-        <Container fluid className="home-section">
+      <br></br>
+      <Container fluid className='product-section'>
         <Particle />
-          <h1>Search for Products!</h1>
-          <Form onSubmit={handleFormSubmit}>
-            <Form.Row>
-              <Col xs={12} md={8}>
-                <Form.Control
-                  name='searchInput'
-                  value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
-                  type='text'
-                  size='lg'
-                  placeholder='Search for a product'
-                />
-              </Col>
-              <Col xs={12} md={4}>
-                <Button type='submit' variant='success' size='lg'>
-                  Submit Search
-                </Button>
-              </Col>
-            </Form.Row>
-          </Form>
+        <Container fluid className='search-content'>
+        <h1 className='product-section'>
+          Lets find <strong className='purple'>Product </strong>
+        </h1>
+     
+        <Form onSubmit={handleFormSubmit}>
+          <Form.Group xs={12} md={8}>
+            <Form.Control
+              name='searchInput'
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              type='text'
+              placeholder='Search for a product by name'
+            
+            />
+          </Form.Group>
+          <br></br>
+          <Button type='submit' variant='success' size='lg'>
+            Submit Search
+          </Button>
+        </Form>
         </Container>
-   
-
-      <Container>
-      <p style={{ color: "white" }}>
+      </Container>
+  
+      <Container >
+        {/* <p style={{ color: 'white' }}>
           Here are Travel results of your search .
-        </p>
-        <h2>
+        </p> */}
+        <h2 
+         style={{ color: 'white' }}
+         >
           {searchedProducts.length
             ? `Viewing ${searchedProducts.length} results:`
             : 'Search for a product to begin'}
         </h2>
-      
-          {searchedProducts.map((product) => {
-            return (
-
-              <Row key={product.productId} data-test-id="product-cards-row" style={{ justifyContent: "center", paddingBottom: "10px" }}>
-                <Col md={4} className="product-cards">
+        <Container className='search-content' >
+        {searchedProducts.map(product => {
+          return (
+            <Row
+              key={product.productId}
+              data-test-id='product-cards-row'
+              style={{ justifyContent: 'center', paddingBottom: '10px' }}
+            >
+              <Col md={4} className='product-cards'>
                 <ProductCards
-                     id={product.productId}
-                     imgPath={product.image}
-                     isBlog={false}
-                     title={product.title}
-                     price="https://github.com/kabirfaisal1/JavaScriptQuiz.git"
-                     siteLink="https://kabirfaisal1.github.io/JavaScriptQuiz/"   
-                  
+                  id={product.productId}
+                  imgPath={product.product['main_image']}
+                  isBlog={false}
+                  title={product.product['title']}
+                  price={product.offers.primary['symbol'] && product.offers.primary['price']}
+                  siteLink={product.product['link']}
                 />
-                 {Auth.loggedIn() && (
-                    <Button
-                      disabled={savedProductIds?.some((savedProductId) => savedProductId === product.productId)}
-                      className='btn-block btn-info'
-                      onClick={() => handleSaveProduct(product.productId)}>
-                      {savedProductIds?.some((savedProductId) => savedProductId === product.productId)
-                        ? 'This product has been saved!'
-                        : 'Save this Product!'}
-                    </Button>
-                  )}
-                </Col>
-              </Row>
-            );
-          })}
-       
+                {Auth.loggedIn() && (
+                  <Button
+                    disabled={savedProductIds?.some(
+                      savedProductId => savedProductId === product.productId
+                    )}
+                    className='btn-block btn-info'
+                    onClick={() => handleSaveProduct(product.productId)}
+                  >
+                    {savedProductIds?.some(
+                      savedProductId => savedProductId === product.productId
+                    )
+                      ? 'This product has been saved!'
+                      : 'Save this Product!'}
+                  </Button>
+                )}
+              </Col>
+            </Row>
+          )
+        })}
+        </Container>
       </Container>
     </>
-  );
-};
+  )
+}
 
-export default Product;
+export default Product
