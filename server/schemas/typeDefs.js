@@ -3,7 +3,7 @@ const { gql } = require('apollo-server-express');
 // typeDefs
 const typeDefs = gql`
     type Product {
-        _id: productID
+        _id: id
         title: [String]
         description: String
         productUPC: String
@@ -13,7 +13,7 @@ const typeDefs = gql`
    
     }
     type Travel {
-        _id: travelID
+        _id: id
         leavingFrom: String
         goingTo: String
         airWays: String

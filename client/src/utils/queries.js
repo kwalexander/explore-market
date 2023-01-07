@@ -11,7 +11,6 @@ export const GET_ME = gql`
       savedProducts {
         productID
         title
-        productUPC
         image
         forSale
         link

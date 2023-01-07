@@ -24,7 +24,7 @@ export const ADD_USER = gql`
   }
 `;
 
-export const SAVE_Product = gql`
+export const SAVE_PRODUCT = gql`
   mutation saveProduct($product: SavedProductInput!) {
     saveProduct(product: $product) {
       username
