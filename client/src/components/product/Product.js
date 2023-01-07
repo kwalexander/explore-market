@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Container, Col, Form, Button, Card } from 'react-bootstrap';
+import {Container, Col, Form, Button, Row } from 'react-bootstrap';
 import Auth from '../../utils/auth';
 import ProductCards  from "../search/SearchCards";
 import { searchProduct } from '../../utils/API';
@@ -7,6 +7,7 @@ import { saveProductIds, getSavedProductIds } from '../../utils/localStorage';
 import { useMutation } from '@apollo/react-hooks';
 import {SAVE_PRODUCT} from '../../utils/mutations';
 import { GET_ME } from '../../utils/queries';
+import Particle from "../Particle";
 
 function Product(){
   // create state for holding returned google api data
@@ -46,7 +47,7 @@ function Product(){
       const productData = items.map((product) => ({
         productId: product.id,
         title: product.volumeInfo.title,
-        link: product.volumeInfo.infoLink,
+        price: product.volumeInfo.infoLink,
         image: product.volumeInfo.imageLinks?.thumbnail || '',
       }));
 
@@ -89,7 +90,8 @@ function Product(){
 
   return (
     <>
-        <Container>
+        <Container fluid className="home-section">
+        <Particle />
           <h1>Search for Products!</h1>
           <Form onSubmit={handleFormSubmit}>
             <Form.Row>
@@ -114,6 +116,9 @@ function Product(){
    
 
       <Container>
+      <p style={{ color: "white" }}>
+          Here are Travel results of your search .
+        </p>
         <h2>
           {searchedProducts.length
             ? `Viewing ${searchedProducts.length} results:`
@@ -122,15 +127,19 @@ function Product(){
       
           {searchedProducts.map((product) => {
             return (
-              <Card key={product.productId} border='dark'>
-                {product.image ? (
-                  <Card.Img src={product.image} alt={`The cover for ${product.title}`} variant='top' />
-                ) : null}
-                <Card.Body>
-                  <Card.Title>{product.title}</Card.Title>
-                  <p className='small'>Authors: {product.authors}</p>
-                  <Card.Text>{product.description}</Card.Text>
-                  {Auth.loggedIn() && (
+
+              <Row key={product.productId} data-test-id="product-cards-row" style={{ justifyContent: "center", paddingBottom: "10px" }}>
+                <Col md={4} className="product-cards">
+                <ProductCards
+                     id={product.productId}
+                     imgPath={product.image}
+                     isBlog={false}
+                     title={product.title}
+                     price="https://github.com/kabirfaisal1/JavaScriptQuiz.git"
+                     siteLink="https://kabirfaisal1.github.io/JavaScriptQuiz/"   
+                  
+                />
+                 {Auth.loggedIn() && (
                     <Button
                       disabled={savedProductIds?.some((savedProductId) => savedProductId === product.productId)}
                       className='btn-block btn-info'
@@ -140,8 +149,8 @@ function Product(){
                         : 'Save this Product!'}
                     </Button>
                   )}
-                </Card.Body>
-              </Card>
+                </Col>
+              </Row>
             );
           })}
        

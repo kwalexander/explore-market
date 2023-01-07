@@ -10,7 +10,7 @@ import Auth from '../../utils/auth'
 function SearchCards(props) {
   return (
     <>
-      <Card data-test-id={props.title} className="project-card-view">
+      <Card data-test-id={props.title && props.id} className="project-card-view">
         <Card.Img variant="top" src={props.imgPath} alt="card-img" />
         <Card.Body>
 
