@@ -23,9 +23,9 @@ const userSchema = new Schema(
       required: true,
     },
     // set savedproducts to be an array of data that adheres to the productSchema
-    savedProducts: [productSchema],
+    savedProduct: [productSchema],
      // set savedtravels to be an array of data that adheres to the travelSchema
-    savedTravels: [travelSchema],
+    savedTravel: [travelSchema],
   },
   // set this to use virtual below
   {
