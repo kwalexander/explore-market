@@ -1,49 +1,55 @@
-import React from "react";
+import React, { useRef } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
-import homeLogo from "../../assets/images/MyPhoto.png";
+import "./assets/style.css";
 import Particle from "../Particle";
-import Home2 from "./Home2";
-import Type from "./Type";
+
+
+
+
+const useHover = () => {
+  const ref = useRef();
+
+  const handleMouseEnter = () => {
+    ref.current.classList.add('hover-left');
+  };
+
+  const handleMouseLeave = () => {
+    ref.current.classList.remove('hover-left');
+  };
+
+  return {
+    ref,
+    handleMouseEnter,
+    handleMouseLeave
+  };
+};
 
 function Home() {
+  const left = useHover();
+  const right = useHover();
+  const container = useHover();
+
   return (
-    <section>
-      <Container fluid className="home-section" id="home">
+  
+      <Container fluid className="container" ref={container.ref}>
         <Particle />
         <Container className="home-content">
           <Row>
-            <Col md={7} className="home-header">
-              <h1 data-testid="homepage-header-greeting" style={{ paddingBottom: 15 }} className="heading">
-                hello Friends{" "}
-                <span className="wave" role="img" aria-labelledby="wave">
-                  👋🏻
-                </span>
-              </h1>
+            <Col className="split left" ref={left.ref} onMouseEnter={left.handleMouseEnter} onMouseLeave={left.handleMouseLeave}>
+              <h1>Products</h1>
+              <a href="#" className="btn">Search Now</a>
 
-              <h1 data-testid="homepage-header-for-name" className="heading-name">
-                TDB
-                <strong className="main-name"> TBD</strong>
-              </h1>
-
-              <div data-testid="homepage-typeWriter" style={{ padding: 50, textAlign: "left" }}>
-                <Type />
-              </div>
             </Col>
 
-            <Col  md={5} style={{ paddingBottom: 20 }}>
-              <img
-                data-testid="my-homepage-pic"
-                src={homeLogo}
-                alt="home pic"
-                className="img-fluid"
-                style={{ maxHeight: "450px" }}
-              />
+            <Col  className="split right" ref={right.ref} onMouseEnter={right.handleMouseEnter} onMouseLeave={right.handleMouseLeave}>
+            <h1>Travel</h1>
+             <a href="#" className="btn">Search Now</a>
             </Col>
           </Row>
         </Container>
       </Container>
-      <Home2 />
-    </section>
+  
+
   );
 }
 

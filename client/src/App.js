@@ -6,6 +6,7 @@ import Product from "./components/product/Product";
 import Travel from "./components/travel/Travel";
 import Footer from "./components/Footer";
 
+
 import {
  BrowserRouter as Router,
   Route,
