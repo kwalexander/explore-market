@@ -8,6 +8,8 @@ import { useMutation } from '@apollo/react-hooks'
 import { SAVE_PRODUCT } from '../../utils/mutations'
 import { GET_ME } from '../../utils/queries'
 import Particle from '../Particle'
+import data from '../../utils/data'
+import { MdFavorite } from 'react-icons/md'
 
 function Product () {
   // create state for holding returned google api data
@@ -95,48 +97,94 @@ function Product () {
     }
   }
 
+  // create function to handle loadmore button
+  const [noOfElement, setnoofElement] = useState(4)
+  const loadMore = () => {
+    setnoofElement(noOfElement + noOfElement)
+  }
+  const slice = data.cardData.slice(0, noOfElement)
+
   return (
     <>
       <br></br>
       <Container fluid className='product-section'>
         <Particle />
         <Container fluid className='search-content'>
-        <h1 className='product-section'>
-          Lets find <strong className='purple'>Product </strong>
-        </h1>
-     
-        <Form onSubmit={handleFormSubmit}>
-          <Form.Group xs={12} md={8}>
-            <Form.Control
-              name='searchInput'
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              type='text'
-              placeholder='Search for a product by name'
-            
-            />
-          </Form.Group>
-          <br></br>
-          <Button type='submit' variant='success' size='lg'>
-            Submit Search
-          </Button>
-        </Form>
+          <h1 className='product-section'>
+            Lets find <strong className='purple'>Product </strong>
+          </h1>
+
+          <Form onSubmit={handleFormSubmit}>
+            <Form.Group xs={12} md={8}>
+              <Form.Control
+                name='searchInput'
+                value={searchInput}
+                onChange={e => setSearchInput(e.target.value)}
+                type='text'
+                placeholder='Search for a product by name'
+              />
+            </Form.Group>
+            <br></br>
+            <Button type='submit' variant='success' size='lg'>
+              Submit Search
+            </Button>
+          </Form>
         </Container>
       </Container>
-  
-      <Container >
-        {/* <p style={{ color: 'white' }}>
-          Here are Travel results of your search .
-        </p> */}
+
+      <Container>
+        <p style={{ color: 'white' }}>
+          
+        </p>
         <h2 
          style={{ color: 'white' }}
          >
-          {searchedProducts.length
-            ? `Viewing ${searchedProducts.length} results:`
+          {data.cardData.length
+            ? `Here are the ${data.cardData.length} product results of your search.`
             : 'Search for a product to begin'}
         </h2>
-        <Container className='search-content' >
-        {searchedProducts.map(product => {
+        <Container
+          id='search-results-container'
+          className='row justify-content-lg-center'
+        >
+          {slice.map((item, index) => {
+            return (
+              <Col
+                id='search-results-cards'
+                data-testid={`product-cardname-${item.title}`}
+                className='col-11 col-md-6 col-lg-3 mx-0 md-5'
+                key={index}
+              >
+                <ProductCards
+                  // id={item.img}
+                  imgPath={item.img}
+                  isBlog={false}
+                  title={item.title}
+                  symbol={item.symbol}
+                  price={item.price}
+                  // siteLink={product.product['link']}
+                />
+                {Auth.loggedIn() && (
+                  <Button
+                    disabled={savedProductIds?.some(
+                      savedProductId => savedProductId === item.id
+                    )}
+                    className='btn-block btn-info'
+                    onClick={() => handleSaveProduct(item.id)}
+                  >
+                    <MdFavorite /> &nbsp;
+                    {savedProductIds?.some(
+                      savedProductId => savedProductId === item.id
+                    )
+                      ? 'This product has been saved!'
+                      : 'Save this Product!'}
+                  </Button>
+                )}
+              </Col>
+            )
+          })}
+
+          {/* {searchedProducts.map(product => {
           return (
             <Row
               key={product.productId}
@@ -170,8 +218,10 @@ function Product () {
               </Col>
             </Row>
           )
-        })}
+        })} */}
         </Container>
+        <br></br>
+        <Button onClick={() => loadMore()}>Load More</Button>
       </Container>
     </>
   )

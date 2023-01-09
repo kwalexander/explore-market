@@ -261,9 +261,14 @@ button:focus {
   padding-top: 30px !important;
 }
 
-.home-content, .search-content {
+.home-content{
   padding: 9rem 0 2rem !important;
   color: whitesmoke;
+  text-align: center;
+}
+.search-content {
+  padding: 9rem 0 2rem !important;
+  color: black;
   text-align: center;
 }
 
@@ -440,15 +445,8 @@ button:focus {
   color: #a588c0 !important;
 }
 /* --------- */
-/* Projects */
+/* Login-Cards */
 /* --------- */
-.project-section {
-  position: relative !important;
-  padding-top: 150px !important;
-  padding-bottom: 30px !important;
-  background-image: var(--section-background-color) !important;
-}
-
 .Login-Cards {
   padding-top: 50px !important;
   padding-bottom: 50px !important;
@@ -478,16 +476,12 @@ button:focus {
   border-radius: 10px !important;
 }
 
-.blog-img {
-  padding: 0px !important;
-  opacity: 0.8 !important;
-  border-radius: 0px !important;
-}
 
 .btn-primary {
   color: #fff !important;
   background-color: #623686 !important;
   border-color: #623686 !important;
+  margin: 5px;
 }
 
 .btn-primary:hover {
@@ -514,13 +508,9 @@ button:focus {
   
 }
 
-#passwordError, #emailError, #useNameError{
-  visibility: hidden;
-}
-
-#emailHelp strong, #passwordHelp strong , #useNameError{
-  
-  font-size: 15px;
-  color: red;
-  
+/* --------- */
+/* search-results-cards */
+/* --------- */
+#search-results-cards{
+  margin-bottom: 40px;
 }

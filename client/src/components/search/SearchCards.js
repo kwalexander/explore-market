@@ -18,29 +18,8 @@ function SearchCards(props) {
             {props.description}
           </Card.Text>
                 <Card.Subtitle style={{ textAlign: "justify" }}>
-                  {props.price}
+                  {props.symbol} {props.price}
                 </Card.Subtitle>
-                <Button
-                  variant="primary"
-                  href={props.siteLink}
-                  target="_blank"
-                  style={{ marginLeft: "10px" }}
-                >
-                <MdFavorite /> &nbsp;
-                </Button>
-                {"\n"}
-                {"\n"}
-                {!props.isBlog && props.siteLink && (
-                  <Button
-                    variant="primary"
-                    href={props.siteLink}
-                    target="_blank"
-                    style={{ marginLeft: "10px" }}
-                  >
-                  <CgWebsite /> &nbsp;
-                    {"Site Link"}
-                  </Button>
-                )}   
         </Card.Body>
       </Card>
     </>
