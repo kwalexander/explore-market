@@ -7,8 +7,9 @@ import Travel from "./components/travel/Travel";
 import Footer from "./components/Footer";
 
 
+
 import {
- BrowserRouter as Router,
+  BrowserRouter as Router,
   Route,
   Routes,
   Navigate
@@ -19,7 +20,7 @@ import ApolloClient from 'apollo-boost'
 import "bootstrap/dist/css/bootstrap.min.css";
 import ScrollToTop from "./components/ScrollToTop";
 
- const client = new ApolloClient({
+const client = new ApolloClient({
   request: (operation) => {
     const token = localStorage.getItem("id_token");
 
@@ -44,22 +45,23 @@ function App() {
   }, []);
 
   return (
-    <ApolloProvider  client ={client}>
-    <Router>
-      <Preloader load={load} />
-      <div className="App" id={load ? "no-scroll" : "scroll"}>
-         <Navbar />
-         <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/product" element={<Product />} />
-          <Route path="/travel" element={<Travel />} />
+    <ApolloProvider client={client}>
+      <Router>
+        <Preloader load={load} />
+        <div className="App" id={load ? "no-scroll" : "scroll"}>
 
-          <Route path="*" element={<Navigate to="/"/>} />
-        </Routes>
-        <Footer />
-      </div>
-    </Router>
+          <Navbar />
+          <ScrollToTop />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/product" element={<Product />} />
+            <Route path="/travel" element={<Travel />} />
+
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+          <Footer />
+        </div>
+      </Router>
     </ApolloProvider>
   );
 }
