@@ -9,6 +9,7 @@ import logo from '../assets/images/avatar.png'
 import {
   AiFillStar,
   AiOutlineHome,
+  AiOutlineFundProjectionScreen,
   AiOutlineUserAdd,
   AiOutlineContacts
 } from 'react-icons/ai'
@@ -23,7 +24,6 @@ import {
 } from 'react-icons/io'
 
 function NavBar () {
-  const [expand, updateExpanded] = useState(false);
   const [navColour, updateNavbar] = useState(false)
   // set modal display state
   const [showModal, setShowModal] = useState(false)
@@ -56,16 +56,7 @@ function NavBar () {
             alt='myLogo'
           />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls='responsive-navbar-nav'
-          onClick={() => {
-            updateExpanded(expand ? false : "expanded");
-          }}
-        >
-
-<span></span>
-          <span></span>
-          <span></span>
-        </Navbar.Toggle>
+        <Navbar.Toggle aria-controls='responsive-navbar-nav' />
 
         <Navbar.Collapse id='responsive-navbar-nav'>
           <Nav className='ms-auto' defaultActiveKey='#home'>
