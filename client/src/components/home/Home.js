@@ -4,28 +4,27 @@ import { CgDisplayFlex } from 'react-icons/cg';
 import Particle from "../Particle";
 import travel from "./travel.webp";
 import product from "./product.webp";
-
+import styles from './home.module.scss';
 
 
 function Home() {
-  const style = {
-    opacity: ".6",
-    display: "flex",
-    
-  }
 
   return (
-  
-<div style={style}>
-  <div>
+
+    <div className={`d-flex vh-100 ${styles.root}`}>
+      <div className='d-flex'>
+        <div className='m-auto'>
+          <h1>Travel</h1>
+          <button className='btn btn-primary'>Search</button>
+        </div>
+      </div>
+      <div className='d-flex'>
+      <div className='m-auto'>
+          <h1>Product</h1>
+          <button className='btn btn-primary'>Search</button>
+        </div>
+      </div>
     </div>
-      <img alt='travel' src={travel}/>
-      <img alt='product' src={product}/>
-    </div>
-
-
-  
-
   );
 }
 

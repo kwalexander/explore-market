@@ -1,0 +1,19 @@
+.root {
+    overflow: hidden;
+    >div{
+        flex: 1;
+        transition: linear 0.3s all;
+        &:hover {
+            transform: scale(1.1);
+        }
+        &:first-child {
+            background: url('./travel.webp') no-repeat center center;
+            background-size: cover;
+            
+        }
+        &:last-child {
+            background: url("./product.webp") no-repeat center center;
+            background-size: cover;
+        }
+    }
+}
