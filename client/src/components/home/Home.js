@@ -1,53 +1,29 @@
 import React, { useRef } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
-import "./assets/style.css";
+import { CgDisplayFlex } from 'react-icons/cg';
 import Particle from "../Particle";
+import travel from "./travel.webp";
+import product from "./product.webp";
 
 
-
-
-const useHover = () => {
-  const ref = useRef();
-
-  const handleMouseEnter = () => {
-    ref.current.classList.add('hover-left');
-  };
-
-  const handleMouseLeave = () => {
-    ref.current.classList.remove('hover-left');
-  };
-
-  return {
-    ref,
-    handleMouseEnter,
-    handleMouseLeave
-  };
-};
 
 function Home() {
-  const left = useHover();
-  const right = useHover();
-  const container = useHover();
+  const style = {
+    opacity: ".6",
+    display: "flex",
+    
+  }
 
   return (
   
-      <Container fluid className="container" ref={container.ref}>
-        <Particle />
-        <Container className="home-content">
-          <Row>
-            <Col className="split left" ref={left.ref} onMouseEnter={left.handleMouseEnter} onMouseLeave={left.handleMouseLeave}>
-              <h1>Products</h1>
-              <a href="#" className="btn">Search Now</a>
+<div style={style}>
+  <div>
+    </div>
+      <img alt='travel' src={travel}/>
+      <img alt='product' src={product}/>
+    </div>
 
-            </Col>
 
-            <Col  className="split right" ref={right.ref} onMouseEnter={right.handleMouseEnter} onMouseLeave={right.handleMouseLeave}>
-            <h1>Travel</h1>
-             <a href="#" className="btn">Search Now</a>
-            </Col>
-          </Row>
-        </Container>
-      </Container>
   
 
   );

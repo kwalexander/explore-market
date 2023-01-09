@@ -7,6 +7,7 @@ import Travel from "./components/travel/Travel";
 import Footer from "./components/Footer";
 
 
+
 import {
  BrowserRouter as Router,
   Route,
@@ -48,6 +49,7 @@ function App() {
     <Router>
       <Preloader load={load} />
       <div className="App" id={load ? "no-scroll" : "scroll"}>
+     
          <Navbar />
          <ScrollToTop />
         <Routes>

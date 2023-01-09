@@ -76,7 +76,7 @@ h1 {
 
 .split.left {
     left: 0;
-    background: url('./images/photo-1583922606661-0822ed0bd916.webp');
+    background: url('./images/travel.webp');
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -91,7 +91,7 @@ h1 {
 
 .split.right {
     right: 0;
-    background: url('./images/photo-1500835556837-99ac94a94552.webp');
+    background: url('./images/product.webp');
     background-repeat: no-repeat;
     background-size: cover;
 }
