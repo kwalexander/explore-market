@@ -8,8 +8,8 @@
     "@apollo/react-hooks": "^4.0.0",
     "@react-pdf/renderer": "^3.0.2",
     "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^14.4.3",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^13.5.0",
     "apollo-boost": "^0.4.9",
     "apollo-server-express": "^3.11.1",
     "bootstrap": "^5.2.3",
@@ -20,11 +20,11 @@
     "if-env": "^1.0.4",
     "jwt-decode": "^3.1.2",
     "postcss-loader": "^7.0.2",
-    "react": "^18.2.0",
+    "react": "17.0.2",
     "react-bootstrap": "^2.7.0",
     "react-bootstrap-typeahead": "^6.0.0",
     "react-css-components": "^1.0.1",
-    "react-dom": "^18.2.0",
+    "react-dom": "17.0.2",
     "react-github-calendar": "^3.4.0",
     "react-icons": "^4.7.1",
     "react-parallax-tilt": "^1.7.84",
@@ -34,7 +34,7 @@
     "react-tsparticles": "^2.7.1",
     "sass": "^1.57.1",
     "typewriter-effect": "^2.19.0",
-    "web-vitals": "^3.1.0"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
