@@ -1,49 +1,46 @@
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import homeLogo from "../../assets/images/MyPhoto.png";
-import Particle from "../Particle";
-import Home2 from "./Home2";
-import Type from "./Type";
+import React, { useState } from 'react';
+import styles from './home.module.scss';
+import { Link } from 'react-router-dom'
+import {
+  SiYourtraveldottv,
+  SiProducthunt
+} from 'react-icons/si'
 
 function Home() {
+  const [showModal, setShowModal] = useState(false)
+
   return (
-    <section>
-      <Container fluid className="home-section" id="home">
-        <Particle />
-        <Container className="home-content">
-          <Row>
-            <Col md={7} className="home-header">
-              <h1 data-testid="homepage-header-greeting" style={{ paddingBottom: 15 }} className="heading">
-                hello Friends{" "}
-                <span className="wave" role="img" aria-labelledby="wave">
-                  👋🏻
-                </span>
-              </h1>
 
-              <h1 data-testid="homepage-header-for-name" className="heading-name">
-                TDB
-                <strong className="main-name"> TBD</strong>
-              </h1>
-
-              <div data-testid="homepage-typeWriter" style={{ padding: 50, textAlign: "left" }}>
-                <Type />
-              </div>
-            </Col>
-
-            <Col  md={5} style={{ paddingBottom: 20 }}>
-              <img
-                data-testid="my-homepage-pic"
-                src={homeLogo}
-                alt="home pic"
-                className="img-fluid"
-                style={{ maxHeight: "450px" }}
-              />
-            </Col>
-          </Row>
-        </Container>
-      </Container>
-      <Home2 />
-    </section>
+    <div className={`d-flex vh-100 ${styles.root}`}>
+      <div className='d-flex'>
+        <div className='m-auto'>
+          <h1>Travel</h1>
+          <Link className='btn btn-primary'
+            as={Link}
+            to='/Travel'
+            onClick={() => setShowModal(false)
+            }
+          >
+            <SiYourtraveldottv
+              style={{ marginBottom: '2px' }}
+            />{' '}Search</Link>
+        </div>
+      </div>
+      <div className='d-flex'>
+        <div className='m-auto'>
+          <h1>Product</h1>
+          <Link className='btn btn-primary'
+            as={Link}
+            to='/Product'
+            onClick={() => setShowModal(false)
+            }
+          >
+            <SiProducthunt
+              style={{ marginBottom: '2px' }}
+            />{' '}Search</Link>
+        </div>
+      </div>
+    </div >
   );
 }
 

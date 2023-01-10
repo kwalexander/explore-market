@@ -2,7 +2,6 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { CgWebsite } from "react-icons/cg";
-import { MdFavorite } from "react-icons/md";
 
 
 function ProjectCards(props) {
@@ -17,15 +16,7 @@ function ProjectCards(props) {
           <Card.Text style={{ textAlign: "justify" }}>
             {props.price}
           </Card.Text>
-          <Button
-              variant="primary"
-              href={props.siteLink}
-              target="_blank"
-              style={{ marginLeft: "10px" }}
-            >
-              <MdFavorite /> &nbsp;
-              
-            </Button>
+        
           {"\n"}
           {"\n"}
           {!props.isBlog && props.siteLink && (
