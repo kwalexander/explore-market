@@ -11,7 +11,7 @@ import Particle from '../Particle'
 import data from '../../utils/data'
 import { MdFavorite } from 'react-icons/md'
 
-function Product () {
+function Product() {
   // create state for holding returned google api data
   const [searchedProducts, setSearchedProducts] = useState([])
   // create state for holding our search field data
@@ -114,31 +114,16 @@ function Product () {
             Lets find <strong className='purple'>Product </strong>
           </h1>
 
-          <Form onSubmit={handleFormSubmit}>
-            <Form.Group xs={12} md={8}>
-              <Form.Control
-                name='searchInput'
-                value={searchInput}
-                onChange={e => setSearchInput(e.target.value)}
-                type='text'
-                placeholder='Search for a product by name'
-              />
-            </Form.Group>
-            <br></br>
-            <Button type='submit' variant='success' size='lg'>
-              Submit Search
-            </Button>
-          </Form>
         </Container>
       </Container>
 
       <Container>
         <p style={{ color: 'white' }}>
-          
+
         </p>
-        <h2 
-         style={{ color: 'white' }}
-         >
+        <h2
+          style={{ color: 'white' }}
+        >
           {data.cardData.length
             ? `Here are the ${data.cardData.length} product results of your search.`
             : 'Search for a product to begin'}
@@ -162,7 +147,7 @@ function Product () {
                   title={item.title}
                   symbol={item.symbol}
                   price={item.price}
-                  // siteLink={product.product['link']}
+                // siteLink={product.product['link']}
                 />
                 {Auth.loggedIn() && (
                   <Button
