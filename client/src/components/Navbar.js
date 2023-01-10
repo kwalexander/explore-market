@@ -48,13 +48,6 @@ function NavBar() {
       >
         <Container>
           <Navbar.Brand data-testid='app-logo' className='d-flex'>
-            <img
-              src={logo}
-              width='80'
-              height='80'
-              className='navbar-brand'
-              alt='myLogo'
-            />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='responsive-navbar-nav' />
 
@@ -71,25 +64,6 @@ function NavBar() {
                     onClick={() => setShowModal(false)}
                   >
                     <AiOutlineHome style={{ marginBottom: '2px' }} /> Dashboard
-                  </Nav.Link>
-
-                  <Nav.Link
-                    data-testid='nav-logout'
-                    onClick={Auth.logout}>
-
-                    <IoMdLogOut style={{ marginBottom: '2px' }} /> Logout
-                  </Nav.Link>
-
-                </>
-              ) : (
-                <>
-                  <Nav.Link
-                    data-testid='nav-home'
-                    as={Link}
-                    to={'/'}
-                    onClick={() => setShowModal(false)}
-                  >
-                    <AiOutlineHome style={{ marginBottom: '2px' }} /> Home
                   </Nav.Link>
 
                   <Nav.Link
@@ -114,6 +88,26 @@ function NavBar() {
                     />{' '}
                     Travel
                   </Nav.Link>
+
+                  <Nav.Link
+                    data-testid='nav-logout'
+                    onClick={Auth.logout}>
+
+                    <IoMdLogOut style={{ marginBottom: '2px' }} /> Logout
+                  </Nav.Link>
+
+                </>
+              ) : (
+                <>
+                  <Nav.Link
+                    data-testid='nav-home'
+                    as={Link}
+                    to={'/'}
+                    onClick={() => setShowModal(false)}
+                  >
+                    <AiOutlineHome style={{ marginBottom: '2px' }} /> Home
+                  </Nav.Link>
+
 
                   <Nav.Link
                     data-testid='nav-product'
