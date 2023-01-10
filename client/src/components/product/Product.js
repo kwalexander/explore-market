@@ -114,6 +114,22 @@ function Product() {
             Lets find <strong className='purple'>Product </strong>
           </h1>
 
+          <Form onSubmit={handleFormSubmit}>
+            <Form.Group xs={12} md={8}>
+              <Form.Control
+                name='searchInput'
+                value={searchInput}
+                onChange={e => setSearchInput(e.target.value)}
+                type='text'
+                placeholder='Search for a product by name'
+              />
+            </Form.Group>
+            <br></br>
+            <Button type='submit' variant='success' size='lg'>
+              Submit Search
+            </Button>
+          </Form>
+
         </Container>
       </Container>
 
