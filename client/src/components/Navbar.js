@@ -60,7 +60,7 @@ function NavBar() {
                   <Nav.Link
                     data-testid='nav-dashboard'
                     as={Link}
-                    to={'/'}
+                    to={'/dashboard'}
                     onClick={() => setShowModal(false)}
                   >
                     <AiOutlineHome style={{ marginBottom: '2px' }} /> Dashboard
