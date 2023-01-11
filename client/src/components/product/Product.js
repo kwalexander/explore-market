@@ -54,23 +54,29 @@ function Product() {
     try {
       const response = await searchProduct(searchInput)
 
-      if (!response.ok) {
-        throw new Error('something went wrong!')
-      }
+      // if (!response.ok) {
+      //   throw new Error('something went wrong!')
+      // }
       console.log("got response back " )
+      console.log(response )
 
-        const { items } = await response.json()
-       console.log("logging Iteams on line 50 " + items);
-      const productData =  response.map(product => ({
+      //   const { items } = await response.json()
+      //  console.log(items);
+      // const productData =  items.map(product => ({
         
-        title: product.title,
-        price: product.sale_price,
-        image: product.product_img || ''
-      }))
+      //   title: product.title,
+      //   price: product.sale_price,
+      //   image: product.product_img || ''
+      // }))
+        // const fetchProducts = async (searchInput) => {
+        //   const response = await searchProduct(searchInput)
+        //   // const json = await response.json();
+        //   setSearchedProducts(response);
+        // }
       // useEffect(() => {
-      //   return () => saveProductIds(savedProductIds)
-      // })
-      setSearchedProducts(productData)
+      //   fetchProducts();
+      // }, [])
+      setSearchedProducts(response)
       setSearchInput('')
     } catch (err) {
       console.error(err)
@@ -169,18 +175,18 @@ function Product() {
           {searchedProducts.map(product => {
           return (
             <Row
-              key={product.productId}
+              key={product.productid}
               data-test-id='product-cards-row'
               style={{ justifyContent: 'center', paddingBottom: '10px' }}
             >
               <Col md={4} className='product-cards'>
                 <ProductCards
-                  id={product.productId}
-                  imgPath={product.product['main_image']}
+                  id={product.productid}
+                  imgPath={product.product_img}
                   isBlog={false}
-                  title={product.product['title']}
-                  price={product.offers.primary['symbol'] && product.offers.primary['price']}
-                  siteLink={product.product['link']}
+                  title={product.title}
+                  price={product.sale_price}
+                  siteLink={product.product_Link}
                 />
                 {/* {Auth.loggedIn() && (
                   <Button
