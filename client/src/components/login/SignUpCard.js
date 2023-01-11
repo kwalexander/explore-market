@@ -108,7 +108,7 @@ const SignUpCard = () => {
           type='submit'
           variant='success'>
           <MdCreate /> &nbsp;
-          Crate Account
+          Create Account
         </Button>
       </Form>
     </>
