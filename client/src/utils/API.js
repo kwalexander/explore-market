@@ -74,10 +74,36 @@ export const deleteTravel = (travelID, token) => {
 }
 
 // make a search to  products api
-export const searchProduct = (query) => {
-  return data;
-  //fetch(`https://www.googleapis.com/products/v1/volumes?q=${query}`)
-  //return fetch(`TO-DO`);
+export async function  searchProduct(query)  {
+  //return data;
+  var Target_Token="6B433687ADCA40CF867E85CE4A429140" ;
+  var queryItem = `https://api.redcircleapi.com/request?api_key=${Target_Token}&search_term=${query}&type=search&rating=five_star&page=1&include_out_of_stock=false`;
+ 
+  const target_search_Results= [];
+  console.log(`search product for ${query}`)
+  return fetch(queryItem, { method: 'GET' }) //fetching all related area for current location
+  // .then((response) => response.json()).then((data) => {
+  //       var i =0
+  //      do{
+  //       var target_search_Result={
+  //         product_img: (data.search_results[i].product['main_image']),
+  //        title: (data.search_results[i].product['title']),
+  //        product_Link: (data.search_results[i].product['link']),
+  //        sale_price: (data.search_results[i].offers.primary['symbol']+' '+data.search_results[i].offers.primary['price']),
+  //        product_rating: (data.search_results[i].product['rating'])
+  //      };
+  //       target_search_Results.push(target_search_Result);
+  //        i++;
+  //      }
+  //      while(i<data.search_results.length)
+  //      console.log("API call results ")
+  //     console.log( target_search_Results)
+  //      return target_search_Results;
+  //   })
+  // .catch((error) => {
+  //     console.error('Error:', error);
+  //     return error;
+  //   });
 }
 
 // make a search to  products api

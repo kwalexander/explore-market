@@ -8,12 +8,25 @@ import { useMutation } from '@apollo/react-hooks'
 import { SAVE_PRODUCT } from '../../utils/mutations'
 import { GET_ME } from '../../utils/queries'
 import Particle from '../Particle'
-import data from '../../utils/data'
+// import data from '../../utils/data'
 import { MdFavorite } from 'react-icons/md'
 
 function Product() {
   // create state for holding returned google api data
   const [searchedProducts, setSearchedProducts] = useState([])
+
+  // const fetchProducts = async () => {
+  //   const response = await fetch(/*get request*/)
+  //   const json = await response.json();
+  //   setSearchedProducts(json);
+  // }
+
+  // useEffect(() => {
+  //   fetchProducts();
+  // }, [])
+
+  //data.map((item, index))
+
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('')
 
@@ -34,25 +47,29 @@ function Product() {
     event.preventDefault()
 
     if (!searchInput) {
+      console.log("can't be empty")
       return false
     }
-
+    console.log(searchInput)
     try {
       const response = await searchProduct(searchInput)
 
       if (!response.ok) {
         throw new Error('something went wrong!')
       }
+      console.log("got response back " )
 
-      const { items } = await response.json()
-
-      const productData = items.map(product => ({
-        productId: product.id,
+        const { items } = await response.json()
+       console.log("logging Iteams on line 50 " + items);
+      const productData =  response.map(product => ({
+        
         title: product.title,
-        price: product.price,
-        image: product.img || ''
+        price: product.sale_price,
+        image: product.product_img || ''
       }))
-
+      // useEffect(() => {
+      //   return () => saveProductIds(savedProductIds)
+      // })
       setSearchedProducts(productData)
       setSearchInput('')
     } catch (err) {
@@ -102,36 +119,36 @@ function Product() {
   const loadMore = () => {
     setnoofElement(noOfElement + noOfElement)
   }
-  const slice = data.cardData.slice(0, noOfElement)
+  // const slice = data.cardData.slice(0, noOfElement)
 
   return (
     <>
       <br></br>
-      <Container fluid className='product-section'>
         <Particle />
         <Container fluid className='search-content'>
           <h1 className='product-section'>
             Lets find <strong className='purple'>Product </strong>
           </h1>
-
           <Form onSubmit={handleFormSubmit}>
-            <Form.Group xs={12} md={8}>
-              <Form.Control
-                name='searchInput'
-                value={searchInput}
-                onChange={e => setSearchInput(e.target.value)}
-                type='text'
-                placeholder='Search for a product by name'
-              />
-            </Form.Group>
-            <br></br>
-            <Button type='submit' variant='success' size='lg'>
-              Submit Search
-            </Button>
+            <Form.Row>
+              <Col xs={12} md={8}>
+                <Form.Control
+                  name='searchInput'
+                  value={searchInput}
+                  onChange={e => setSearchInput(e.target.value)}
+                  type='text'
+                  placeholder='Search for a product by name'
+                />
+              </Col>
+              <Col xs={12} md={8}>
+                <Button type='submit' variant='success' size='lg'>
+                  Submit Search
+                </Button>
+              </Col>
+            </Form.Row>
           </Form>
 
         </Container>
-      </Container>
 
       <Container>
         <p style={{ color: 'white' }}>
@@ -140,52 +157,16 @@ function Product() {
         <h2
           style={{ color: 'white' }}
         >
-          {data.cardData.length
-            ? `Here are the ${data.cardData.length} product results of your search.`
+          {searchedProducts.length
+            ? `Here are the ${searchedProducts.length} product results of your search.`
             : 'Search for a product to begin'}
         </h2>
         <Container
           id='search-results-container'
           className='row justify-content-lg-center'
         >
-          {slice.map((item, index) => {
-            return (
-              <Col
-                id='search-results-cards'
-                data-testid={`product-cardname-${item.title}`}
-                className='col-11 col-md-6 col-lg-3 mx-0 md-5'
-                key={index}
-              >
-                <ProductCards
-                  // id={item.img}
-                  imgPath={item.img}
-                  isBlog={false}
-                  title={item.title}
-                  symbol={item.symbol}
-                  price={item.price}
-                // siteLink={product.product['link']}
-                />
-                {Auth.loggedIn() && (
-                  <Button
-                    disabled={savedProductIds?.some(
-                      savedProductId => savedProductId === item.id
-                    )}
-                    className='btn-block btn-info'
-                    onClick={() => handleSaveProduct(item.id)}
-                  >
-                    <MdFavorite /> &nbsp;
-                    {savedProductIds?.some(
-                      savedProductId => savedProductId === item.id
-                    )
-                      ? 'This product has been saved!'
-                      : 'Save this Product!'}
-                  </Button>
-                )}
-              </Col>
-            )
-          })}
-
-          {/* {searchedProducts.map(product => {
+        
+          {searchedProducts.map(product => {
           return (
             <Row
               key={product.productId}
@@ -201,7 +182,7 @@ function Product() {
                   price={product.offers.primary['symbol'] && product.offers.primary['price']}
                   siteLink={product.product['link']}
                 />
-                {Auth.loggedIn() && (
+                {/* {Auth.loggedIn() && (
                   <Button
                     disabled={savedProductIds?.some(
                       savedProductId => savedProductId === product.productId
@@ -215,11 +196,11 @@ function Product() {
                       ? 'This product has been saved!'
                       : 'Save this Product!'}
                   </Button>
-                )}
+                )} */}
               </Col>
             </Row>
           )
-        })} */}
+        })}
         </Container>
         <br></br>
         <Button onClick={() => loadMore()}>Load More</Button>
