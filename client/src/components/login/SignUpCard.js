@@ -33,6 +33,8 @@ const SignUpCard = () => {
       event.stopPropagation();
     }
 
+    console.log(userFormData);
+
     try {
       const { data } = await createUser({
         variables: { ...userFormData }
