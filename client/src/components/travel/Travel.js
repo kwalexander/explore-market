@@ -21,10 +21,10 @@ function Travel () {
   const [searchDepartureDateInput, setsearchDepartureDateInput] = useState('')
   const [searchReturnDateInput, setsearchReturnDateInput] = useState('')
 
-  // create state to hold saved productId values
+  // create state to hold saved travelId values
   const [savedTravelIds, setSavedTravelIds] = useState(getSavedTravelIds())
 
-  // define the save product function from the mutation
+  // define the save travel function from the mutation
   const [saveTravel] = useMutation(SAVE_TRAVEL)
 
   // set up useEffect hook to save `savedTravelIds` list to localStorage on component unmount
@@ -33,7 +33,7 @@ function Travel () {
     return () => saveTravelIds(savedTravelIds)
   })
 
-  // create method to search for products and set state on form submit
+  // create method to search for travels and set state on form submit
   const handleFormSubmit = async event => {
     event.preventDefault()
 
@@ -59,7 +59,7 @@ function Travel () {
       const response = await searchTravel(searchDepartureToInput, searchDepartureDateInput, searchDepartureFromInput, 
         searchReturnDateInput)
 
-      if (response.error) {
+      if (response.err) {
         throw new Error('something went wrong!')
       }
       setSearchedTravels(response)
@@ -72,11 +72,11 @@ function Travel () {
       console.error(err)
     }
   }
-  // create function to handle saving a product to our database
-  const handleSaveTravel = async productId => {
-    // find the product in `searchedTravels` state by the matching id
-    const productToSave = searchedTravels.find(
-      product => product.productId === productId
+  // create function to handle saving a travel to our database
+  const handleSaveTravel = async travelId => {
+    // find the travel in `searchedTravels` state by the matching id
+    const travelToSave = searchedTravels.find(
+      travel => travel.travelId === travelId
     )
 
     // get token
@@ -88,7 +88,7 @@ function Travel () {
 
     try {
       await saveTravel({
-        variables: { product: productToSave },
+        variables: { travel: travelToSave },
         update: cache => {
           const { me } = cache.readQuery({ query: GET_ME })
           // console.log(me)
@@ -96,14 +96,14 @@ function Travel () {
           cache.writeQuery({
             query: GET_ME,
             data: {
-              me: { ...me, savedTravels: [...me.savedTravels, productToSave] }
+              me: { ...me, savedTravels: [...me.savedTravels, travelToSave] }
             }
           })
         }
       })
 
-      // if product successfully saves to user's account, save product id to state
-      setSavedTravelIds([...savedTravelIds, productToSave.productId])
+      // if travel successfully saves to user's account, save travel id to state
+      setSavedTravelIds([...savedTravelIds, travelToSave.travelId])
     } catch (err) {
       console.error(err)
     }
@@ -113,7 +113,7 @@ function Travel () {
       <br></br>
       <Particle />
       <Container fluid className='search-content'>
-        <h1 className='product-section'>
+        <h1 className='travel-section'>
           Lets find <strong className='purple'>Travel </strong>
         </h1>
         <Form onSubmit={handleFormSubmit}>
@@ -170,48 +170,48 @@ function Travel () {
         <p style={{ color: 'white' }}></p>
         <h2 style={{ color: 'white' }}>
           {searchedTravels.length
-            ? `Here are the ${searchedTravels.length} product results of your search.`
-            : 'Search for a product to begin'}
+            ? `Here are the ${searchedTravels.length} travel results of your search.`
+            : 'Search for a travel to begin'}
         </h2>
         <Container
           id='search-results-container'
           className='row justify-content-lg-center'
         >
-          {searchedTravels.map(product => {
+          {searchedTravels.map(travel => {
             return (
               <Col
                 id='search-results-cards'
-                data-testid={`product-cardname-${product.title}`}
+                data-testid={`travel-cardname-${travel.airlineName}`}
                 className='col-11 col-md-6 col-lg-3 mx-0 md-5'
-                key={product.productid}
+                key={travel.travelid*3}
               >
                 <TravelCards
-                  id={product.productid}
-                  imgPath={product.product_img}
+                  id={travel.travelid}
+                  imgPath={travel.airlineIMG}
                   isBlog={false}
-                  title={product.title}
-                  price={product.sale_price}
+                  title={travel.airlineName}
+                  price={travel.pricingInfo}
                 />
                 {Auth.loggedIn() && (
                   <Col>
                     <Button
                       disabled={savedTravelIds?.some(
-                        savedTravelId => savedTravelId === product.productId
+                        savedTravelId => savedTravelId === travel.travelId
                       )}
                       className='btn-block btn-info'
-                      onClick={() => handleSaveTravel(product.productId)}
+                      onClick={() => handleSaveTravel(travel.travelId)}
                     >
                        <MdFavorite /> &nbsp;
                       {savedTravelIds?.some(
-                        savedTravelId => savedTravelId === product.productId
+                        savedTravelId => savedTravelId === travel.travelId
                       )
-                        ? 'This product has been saved!'
+                        ? 'This travel has been saved!'
                         : 'Save this Travel!'}
                     </Button>
 
                     <Button
                       variant='primary'
-                      href={product.product_Link}
+                      href={travel.airlineURL}
                       target='_blank'
                       style={{ marginLeft: '10px' }}
                     >

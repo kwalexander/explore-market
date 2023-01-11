@@ -122,31 +122,28 @@ export async function  searchTravel(travel_to, depart_Date, Flyfrom,returnDate){
   return fetch(`https://priceline-com-provider.p.rapidapi.com/v1/flights/search?itinerary_type=ROUND_TRIP&class_type=ECO&location_arrival=${travel_to}&date_departure=${depart_Date}&location_departure=${Flyfrom}&sort_order=PRICE&number_of_stops=1&price_max=20000&number_of_passengers=1&duration_max=2051&price_min=100&date_departure_return=${returnDate}`,options)
   .then(response => response.json())
 	.then((response) =>{
-    console.log(response.airport)
+
     var i =0
     do{
      var search_Result={
-      // productid: (response.airport[i].cityId),
-      departAirPortName: (response.search_Result[i].airport["name"] ),
-      departAirPortCode: (response.search_Result[i].airport["code"]),
-      flyToAirPortName: (response.search_Result[i].airport[i+1]['name']),
-      flyToAirPortCode: (response.search_Result[i].airport[i+1]['code']),
-      departAirLineName: (response.search_Result[i].airline[i+1]['name']),
-      departAirCodeCode: (response.search_Result[i].airline[i+1]['code']),
-      departAirCodeImg: (response[i].airline[i+1]['smallImage']),
-      pricingInfo: (response[i].pricedItinerary['pricingInfo'["totalFare"]])
+      productid: (response.airline[i].code),
+      airlineName: (response.airline[i].name ),
+      airlineIMG: (response.airline[i].smallImage),
+      airlineURL:(response.airline[i].websiteUrl),
+      pricingInfo: (response.pricedItinerary[i].pricingInfo['totalFare'])
     };
      search_Results.push(search_Result);
+     console.log(search_Result)
       i++;
     }
-    while(i<response.search_results.length)
+    while(i<response.airline.length )
     console.log("API call results ")
    console.log( search_Results)
     return search_Results;
   
   })
-  .catch((error) => {
-    console.log('Error:', error);
-    return error;
+  .catch((err) => {
+    console.log('Error:', err);
+    return err;
   });
 }
