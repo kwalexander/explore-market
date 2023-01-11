@@ -126,7 +126,7 @@ export async function  searchTravel(travel_to, depart_Date, Flyfrom,returnDate){
     var i =0
     do{
      var search_Result={
-      productid: (response.airline[i].code),
+      travelid: (response.airline[i].code),
       airlineName: (response.airline[i].name ),
       airlineIMG: (response.airline[i].smallImage),
       airlineURL:(response.airline[i].websiteUrl),
