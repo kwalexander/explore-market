@@ -16,7 +16,10 @@ function Travel () {
   const [searchedTravels, setSearchedTravels] = useState([])
 
   // create state for holding our search field data
-  const [searchInput, setSearchInput] = useState('')
+  const [searchDepartureToInput, setSearchDepartureToInput] = useState('')
+  const [searchDepartureFromInput, setSearchDepartureFromInput] = useState('')
+  const [searchDepartureDateInput, setsearchDepartureDateInput] = useState('')
+  const [searchReturnDateInput, setsearchReturnDateInput] = useState('')
 
   // create state to hold saved productId values
   const [savedTravelIds, setSavedTravelIds] = useState(getSavedTravelIds())
@@ -34,20 +37,37 @@ function Travel () {
   const handleFormSubmit = async event => {
     event.preventDefault()
 
-    if (!searchInput) {
+    if (!searchDepartureToInput) {
+      console.log("can't be empty")
+      return false
+    }
+    if (!searchDepartureFromInput) {
+      console.log("can't be empty")
+      return false
+    }
+    if (!searchDepartureDateInput) {
+      console.log("can't be empty")
+      return false
+    }
+    if (!searchReturnDateInput) {
       console.log("can't be empty")
       return false
     }
 
     try {
-      const response = await searchTravel(searchInput)
+
+      const response = await searchTravel(searchDepartureToInput, searchDepartureDateInput, searchDepartureFromInput, 
+        searchReturnDateInput)
 
       if (response.error) {
         throw new Error('something went wrong!')
       }
       setSearchedTravels(response)
-
-      setSearchInput('')
+      setSearchDepartureToInput('');
+      setSearchDepartureFromInput('');
+     setsearchDepartureDateInput('');
+     setsearchReturnDateInput('');
+    
     } catch (err) {
       console.error(err)
     }
@@ -98,13 +118,43 @@ function Travel () {
         </h1>
         <Form onSubmit={handleFormSubmit}>
           <Form.Row>
+  
+  
             <Col xs={12} md={8}>
               <Form.Control
-                name='searchInput'
-                value={searchInput}
-                onChange={e => setSearchInput(e.target.value)}
+                name='searchDepartureToInput'
+                value={searchDepartureToInput}
+                onChange={e => setSearchDepartureToInput(e.target.value)}
                 type='text'
-                placeholder='Search for a product by name'
+                placeholder='Departure to'
+              />
+            </Col>
+            <Col xs={12} md={8}>
+              <Form.Control
+                name='searchDepartureFromInput'
+                value={searchDepartureFromInput}
+                onChange={e => setSearchDepartureFromInput(e.target.value)}
+                type='text'
+                placeholder='Departure from'
+              />
+            </Col>
+
+            <Col xs={12} md={8}>
+              <Form.Control
+                name='searchDepartureDateInput'
+                value={searchDepartureDateInput}
+                onChange={e => setsearchDepartureDateInput(e.target.value)}
+                type='text'
+                placeholder='Departure Date (yyyy-mm-dd)'
+              />
+            </Col>
+            <Col xs={12} md={8}>
+              <Form.Control
+                name='searchReturnDateInput'
+                value={searchReturnDateInput}
+                onChange={e => setsearchReturnDateInput(e.target.value)}
+                type='text'
+                placeholder='Return Date (yyyy-mm-dd)'
               />
             </Col>
             <Col xs={12} md={8}>
