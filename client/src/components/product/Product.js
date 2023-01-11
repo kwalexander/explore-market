@@ -8,24 +8,12 @@ import { useMutation } from '@apollo/react-hooks'
 import { SAVE_PRODUCT } from '../../utils/mutations'
 import { GET_ME } from '../../utils/queries'
 import Particle from '../Particle'
-// import data from '../../utils/data'
+import { CgWebsite } from 'react-icons/cg'
 import { MdFavorite } from 'react-icons/md'
 
-function Product() {
+function Product () {
   // create state for holding returned google api data
   const [searchedProducts, setSearchedProducts] = useState([])
-
-  // const fetchProducts = async () => {
-  //   const response = await fetch(/*get request*/)
-  //   const json = await response.json();
-  //   setSearchedProducts(json);
-  // }
-
-  // useEffect(() => {
-  //   fetchProducts();
-  // }, [])
-
-  //data.map((item, index))
 
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('')
@@ -50,39 +38,20 @@ function Product() {
       console.log("can't be empty")
       return false
     }
-    console.log(searchInput)
+
     try {
       const response = await searchProduct(searchInput)
 
-      // if (!response.ok) {
-      //   throw new Error('something went wrong!')
-      // }
-      console.log("got response back " )
-      console.log(response )
-
-      //   const { items } = await response.json()
-      //  console.log(items);
-      // const productData =  items.map(product => ({
-        
-      //   title: product.title,
-      //   price: product.sale_price,
-      //   image: product.product_img || ''
-      // }))
-        // const fetchProducts = async (searchInput) => {
-        //   const response = await searchProduct(searchInput)
-        //   // const json = await response.json();
-        //   setSearchedProducts(response);
-        // }
-      // useEffect(() => {
-      //   fetchProducts();
-      // }, [])
+      if (response.error) {
+        throw new Error('something went wrong!')
+      }
       setSearchedProducts(response)
+
       setSearchInput('')
     } catch (err) {
       console.error(err)
     }
   }
-
   // create function to handle saving a product to our database
   const handleSaveProduct = async productId => {
     // find the product in `searchedProducts` state by the matching id
@@ -119,50 +88,37 @@ function Product() {
       console.error(err)
     }
   }
-
-  // create function to handle loadmore button
-  const [noOfElement, setnoofElement] = useState(4)
-  const loadMore = () => {
-    setnoofElement(noOfElement + noOfElement)
-  }
-  // const slice = data.cardData.slice(0, noOfElement)
-
   return (
     <>
       <br></br>
-        <Particle />
-        <Container fluid className='search-content'>
-          <h1 className='product-section'>
-            Lets find <strong className='purple'>Product </strong>
-          </h1>
-          <Form onSubmit={handleFormSubmit}>
-            <Form.Row>
-              <Col xs={12} md={8}>
-                <Form.Control
-                  name='searchInput'
-                  value={searchInput}
-                  onChange={e => setSearchInput(e.target.value)}
-                  type='text'
-                  placeholder='Search for a product by name'
-                />
-              </Col>
-              <Col xs={12} md={8}>
-                <Button type='submit' variant='success' size='lg'>
-                  Submit Search
-                </Button>
-              </Col>
-            </Form.Row>
-          </Form>
-
-        </Container>
+      <Particle />
+      <Container fluid className='search-content'>
+        <h1 className='product-section'>
+          Lets find <strong className='purple'>Product </strong>
+        </h1>
+        <Form onSubmit={handleFormSubmit}>
+          <Form.Row>
+            <Col xs={12} md={8}>
+              <Form.Control
+                name='searchInput'
+                value={searchInput}
+                onChange={e => setSearchInput(e.target.value)}
+                type='text'
+                placeholder='Search for a product by name'
+              />
+            </Col>
+            <Col xs={12} md={8}>
+              <Button type='submit' variant='success' size='lg'>
+                Submit Search
+              </Button>
+            </Col>
+          </Form.Row>
+        </Form>
+      </Container>
 
       <Container>
-        <p style={{ color: 'white' }}>
-
-        </p>
-        <h2
-          style={{ color: 'white' }}
-        >
+        <p style={{ color: 'white' }}></p>
+        <h2 style={{ color: 'white' }}>
           {searchedProducts.length
             ? `Here are the ${searchedProducts.length} product results of your search.`
             : 'Search for a product to begin'}
@@ -171,45 +127,54 @@ function Product() {
           id='search-results-container'
           className='row justify-content-lg-center'
         >
-        
           {searchedProducts.map(product => {
-          return (
-            <Row
-              key={product.productid}
-              data-test-id='product-cards-row'
-              style={{ justifyContent: 'center', paddingBottom: '10px' }}
-            >
-              <Col md={4} className='product-cards'>
+            return (
+              <Col
+                id='search-results-cards'
+                data-testid={`product-cardname-${product.title}`}
+                className='col-11 col-md-6 col-lg-3 mx-0 md-5'
+                key={product.productid}
+              >
                 <ProductCards
                   id={product.productid}
                   imgPath={product.product_img}
                   isBlog={false}
                   title={product.title}
                   price={product.sale_price}
-                  siteLink={product.product_Link}
                 />
-                {/* {Auth.loggedIn() && (
-                  <Button
-                    disabled={savedProductIds?.some(
-                      savedProductId => savedProductId === product.productId
-                    )}
-                    className='btn-block btn-info'
-                    onClick={() => handleSaveProduct(product.productId)}
-                  >
-                    {savedProductIds?.some(
-                      savedProductId => savedProductId === product.productId
-                    )
-                      ? 'This product has been saved!'
-                      : 'Save this Product!'}
-                  </Button>
-                )} */}
+                {Auth.loggedIn() && (
+                  <Col>
+                    <Button
+                      disabled={savedProductIds?.some(
+                        savedProductId => savedProductId === product.productId
+                      )}
+                      className='btn-block btn-info'
+                      onClick={() => handleSaveProduct(product.productId)}
+                    >
+                       <MdFavorite /> &nbsp;
+                      {savedProductIds?.some(
+                        savedProductId => savedProductId === product.productId
+                      )
+                        ? 'This product has been saved!'
+                        : 'Save this Product!'}
+                    </Button>
+
+                    <Button
+                      variant='primary'
+                      href={product.product_Link}
+                      target='_blank'
+                      style={{ marginLeft: '10px' }}
+                    >
+                      <CgWebsite /> &nbsp; Site Link
+                    </Button>
+                  </Col>
+                )}
               </Col>
-            </Row>
-          )
-        })}
+            )
+          })}
         </Container>
         <br></br>
-        <Button onClick={() => loadMore()}>Load More</Button>
+        {/* <Button onClick={() => loadMore()}>Load More</Button> */}
       </Container>
     </>
   )

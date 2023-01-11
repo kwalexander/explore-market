@@ -87,7 +87,7 @@ export async function  searchProduct(query)  {
        do{
         var target_search_Result={
          productid: (data.search_results[i].tcin),
-          product_img: (data.search_results[i].product['main_image']),
+         product_img: (data.search_results[i].product['main_image']),
          title: (data.search_results[i].product['title']),
          product_Link: (data.search_results[i].product['link']),
          sale_price: (data.search_results[i].offers.primary['symbol']+' '+data.search_results[i].offers.primary['price']),
@@ -102,7 +102,7 @@ export async function  searchProduct(query)  {
        return target_search_Results;
     })
   .catch((error) => {
-      console.error('Error:', error);
+      console.log('Error:', error);
       return error;
     });
 }
