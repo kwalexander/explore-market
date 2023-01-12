@@ -4,7 +4,7 @@ import Auth from '../../utils/auth'
 import ProductCards from '../search/SearchCards'
 import { searchProduct } from '../../utils/API'
 import { saveProductIds, getSavedProductIds } from '../../utils/localStorage'
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/client'
 import { SAVE_PRODUCT } from '../../utils/mutations'
 import { GET_ME } from '../../utils/queries'
 import Particle from '../Particle'
@@ -68,7 +68,16 @@ const [canSubmit, setcanNOTSubmit] = useState(true)
     const productToSave = searchedProducts.find(
       product => product.productId === productId
     )
-
+    console.log(productToSave);
+    const productVars = {
+      title: productToSave.title,
+      description: productToSave.product_rating,
+      productID: productToSave.productid,
+      image: productToSave.product_img,
+      forSale: productToSave.sale_price,
+      link: productToSave.product_Link
+    }
+    console.log(productVars);
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null
 
@@ -77,23 +86,22 @@ const [canSubmit, setcanNOTSubmit] = useState(true)
     }
 
     try {
-      await saveProduct({
-        variables: { product: productToSave },
-        update: cache => {
-          const { me } = cache.readQuery({ query: GET_ME })
-          // console.log(me)
-          // console.log(me.savedProducts)
-          cache.writeQuery({
-            query: GET_ME,
-            data: {
-              me: { ...me, savedProducts: [...me.savedProducts, productToSave] }
-            }
-          })
-        }
-      })
+      await saveProduct({ variables: { product: productVars }})
+      //   update: cache => {
+      //     const { me } = cache.readQuery({ query: GET_ME })
+      //     // console.log(me)
+      //     // console.log(me.savedProducts)
+      //     cache.writeQuery({
+      //       query: GET_ME,
+      //       data: {
+      //         me: { ...me, savedProducts: [...me.savedProducts, productToSave] }
+      //       }
+      //     })
+      //   }
+      // })
 
-      // if product successfully saves to user's account, save product id to state
-      setSavedProductIds([...savedProductIds, productToSave.productId])
+      // // if product successfully saves to user's account, save product id to state
+      // setSavedProductIds([...savedProductIds, productToSave.productId])
     } catch (err) {
       console.error(err)
     }
@@ -211,4 +219,4 @@ const [canSubmit, setcanNOTSubmit] = useState(true)
   )
 }
 
-export default Product
+export default Product;
