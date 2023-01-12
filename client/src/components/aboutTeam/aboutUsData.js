@@ -31,9 +31,9 @@ const contact = {
     {
       id: '4',
       name: 'Kaspar Alexander',
-      imgURL: 'https://avatars.githubusercontent.com/u/49538762?v=4',
-      portfolio: '',
-      aboutMe: '',
+      imgURL: 'https://media.licdn.com/dms/image/C4E03AQGTp86KnSH-wg/profile-displayphoto-shrink_400_400/0/1517744178744?e=1678924800&v=beta&t=EIib2kPy9CqnMDzM_I18shPRkjKBCNJHGZnJ_KySOaI',
+      portfolio: 'https://github.com/kwalexander',
+      aboutMe: 'NYC-based Product Management leader at Paperless Post.',
       linkedin: 'https://www.linkedin.com/in/kasparalexander/',
       gitHub: 'https://github.com/kwalexander'
     }
