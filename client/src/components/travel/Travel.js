@@ -4,7 +4,7 @@ import Auth from '../../utils/auth'
 import TravelCards from '../search/SearchCards'
 import { searchTravel } from '../../utils/API'
 import { saveTravelIds, getSavedTravelIds } from '../../utils/localStorage'
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation } from '@apollo/client'
 import { SAVE_TRAVEL } from '../../utils/mutations'
 import { GET_ME } from '../../utils/queries'
 import Particle from '../Particle'
@@ -78,6 +78,14 @@ function Travel () {
     const travelToSave = searchedTravels.find(
       travel => travel.travelId === travelId
     )
+    console.log(travelToSave);
+    const travelVars = {
+      leavingFrom: travelToSave.airlineIMG,
+      goingTo: travelToSave.pricingInfo.toString(),
+      airWays: travelToSave.airlineName,
+      duration: travelToSave.travelid,
+      link: travelToSave.airlineURL
+    }
 
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null
@@ -87,23 +95,22 @@ function Travel () {
     }
 
     try {
-      await saveTravel({
-        variables: { travel: travelToSave },
-        update: cache => {
-          const { me } = cache.readQuery({ query: GET_ME })
-          // console.log(me)
-          // console.log(me.savedTravels)
-          cache.writeQuery({
-            query: GET_ME,
-            data: {
-              me: { ...me, savedTravels: [...me.savedTravels, travelToSave] }
-            }
-          })
-        }
-      })
+      await saveTravel({variables: { travel: travelVars }})
+      //   update: cache => {
+      //     const { me } = cache.readQuery({ query: GET_ME })
+      //     // console.log(me)
+      //     // console.log(me.savedTravels)
+      //     cache.writeQuery({
+      //       query: GET_ME,
+      //       data: {
+      //         me: { ...me, savedTravels: [...me.savedTravels, travelToSave] }
+      //       }
+      //     })
+      //   }
+      // })
 
-      // if travel successfully saves to user's account, save travel id to state
-      setSavedTravelIds([...savedTravelIds, travelToSave.travelId])
+      // // if travel successfully saves to user's account, save travel id to state
+      // setSavedTravelIds([...savedTravelIds, travelToSave.travelId])
     } catch (err) {
       console.error(err)
     }

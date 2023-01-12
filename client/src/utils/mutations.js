@@ -26,14 +26,13 @@ export const ADD_USER = gql`
 
 export const SAVE_PRODUCT = gql`
   mutation saveProduct($product: SavedProductInput!) {
-    saveProduct(product: $product) {
+    saveProduct(newProduct: $product) {
       username
       email
       savedProduct {
         productID
         title
         description
-        productUPC
         image
         forSale
         link

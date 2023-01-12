@@ -31,7 +31,15 @@ function Dashboard (props) {
                                 isBlog={false}
                                 title={product.title}
                                 price={product.forSale}
-                                />
+                            />
+                            <Button
+                                variant='primary'
+                                href={product.link}
+                                target='_blank'
+                                style={{ marginLeft: '10px' }}
+                            >
+                                Site Link
+                            </Button>
                     
                     </Col>
                 )
@@ -46,12 +54,20 @@ function Dashboard (props) {
                     key={trip._id}
                     >
                         <ProductCards
-                                id={trip._id}
-                                // imgPath={trip.image}
-                                isBlog={false}
-                                title={trip.airWays}
-                                price={trip.goingTo}
-                                />
+                            id={trip._id}
+                            imgPath={trip.leavingFrom}
+                            isBlog={false}
+                            title={trip.airWays}
+                            price={trip.goingTo}
+                        />
+                        <Button
+                            variant='primary'
+                            href={trip.link}
+                            target='_blank'
+                            style={{ marginLeft: '10px' }}
+                        >
+                            Site Link
+                        </Button>
                     </Col>
                 )
             }) : (
