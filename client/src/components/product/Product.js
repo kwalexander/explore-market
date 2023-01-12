@@ -14,7 +14,7 @@ import { MdFavorite } from 'react-icons/md'
 function Product () {
   // create state for holding returned google api data
   const [searchedProducts, setSearchedProducts] = useState([])
-
+  const [visible, setVisible] =useState(3)
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('')
 
@@ -87,6 +87,10 @@ function Product () {
     } catch (err) {
       console.error(err)
     }
+ 
+  }
+  const showMoreItems= ()=>{
+    setVisible((prevValue)=>prevValue+3);
   }
   return (
     <>
@@ -127,7 +131,8 @@ function Product () {
           id='search-results-container'
           className='row justify-content-lg-center'
         >
-          {searchedProducts.map(product => {
+          {/* {searchedProducts.slice(0, visible).map(product => { */}
+             {searchedProducts.map(product => {
             return (
               <Col
                 id='search-results-cards'
@@ -172,10 +177,12 @@ function Product () {
               </Col>
             )
           })}
+
         </Container>
-        <br></br>
-        {/* <Button onClick={() => loadMore()}>Load More</Button> */}
+        {/* <br></br>
+        <Button onClick={showMoreItems}>Load More</Button>  */}
       </Container>
+
     </>
   )
 }
