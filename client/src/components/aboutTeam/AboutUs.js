@@ -14,7 +14,7 @@ function AboutUs () {
          <strong className='purple'> shopping </strong>
         experience
       </p>
-      <CardColumns>
+      <CardColumns  className='aboutUs-CardColumns'>
         {aboutUs.cardData.map((team, index) => {
           return (
             <Card
