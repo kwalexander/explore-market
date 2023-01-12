@@ -9,7 +9,7 @@ import logo from '../assets/images/avatar.png'
 import {
   AiFillStar,
   AiOutlineHome,
-  AiOutlineFundProjectionScreen,
+  AiOutlineTeam,
   AiOutlineUserAdd,
   AiOutlineContacts
 } from 'react-icons/ai'
@@ -112,13 +112,13 @@ function NavBar() {
                   <Nav.Link
                     data-testid='nav-product'
                     as={Link}
-                    to='/Contact'
+                    to='/AboutUs'
                     onClick={() => setShowModal(false)}
                   >
-                    <AiOutlineContacts
+                    <AiOutlineTeam
                       style={{ marginBottom: '2px' }}
                     />{' '}
-                    Contact
+                    About Us
                   </Nav.Link>
 
 

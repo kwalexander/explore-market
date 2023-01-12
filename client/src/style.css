@@ -427,3 +427,15 @@ button:focus {
 #search-results-cards{
   margin-bottom: 40px;
 }
+.about-us-card{
+  color: black;
+}
+
+.about-me-text{
+  margin: 15px;
+}
+.aboutUs-CardColumns{
+  margin: 15px;
+  padding: 15px;
+  
+}
