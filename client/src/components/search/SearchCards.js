@@ -19,17 +19,7 @@ function ProjectCards(props) {
         
           {"\n"}
           {"\n"}
-          {!props.isBlog && props.siteLink && (
-            <Button
-              variant="primary"
-              href={props.siteLink}
-              target="_blank"
-              style={{ marginLeft: "10px" }}
-            >
-              <CgWebsite /> &nbsp;
-              {"Site Link"}
-            </Button>
-          )}
+          
         </Card.Body>
       </Card>
     );

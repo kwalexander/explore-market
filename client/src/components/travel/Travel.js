@@ -8,12 +8,18 @@ import { useMutation } from '@apollo/react-hooks'
 import { SAVE_TRAVEL } from '../../utils/mutations'
 import { GET_ME } from '../../utils/queries'
 import Particle from '../Particle'
+import { CgWebsite } from 'react-icons/cg'
+import { MdFavorite } from 'react-icons/md'
 
 function Travel () {
   // create state for holding returned google api data
   const [searchedTravels, setSearchedTravels] = useState([])
+
   // create state for holding our search field data
-  const [searchInput, setSearchInput] = useState('')
+  const [searchDepartureToInput, setSearchDepartureToInput] = useState('')
+  const [searchDepartureFromInput, setSearchDepartureFromInput] = useState('')
+  const [searchDepartureDateInput, setsearchDepartureDateInput] = useState('')
+  const [searchReturnDateInput, setsearchReturnDateInput] = useState('')
 
   // create state to hold saved travelId values
   const [savedTravelIds, setSavedTravelIds] = useState(getSavedTravelIds())
@@ -31,33 +37,41 @@ function Travel () {
   const handleFormSubmit = async event => {
     event.preventDefault()
 
-    if (!searchInput) {
+    if (!searchDepartureToInput) {
+      console.log("can't be empty")
+      return false
+    }
+    if (!searchDepartureFromInput) {
+      console.log("can't be empty")
+      return false
+    }
+    if (!searchDepartureDateInput) {
+      console.log("can't be empty")
+      return false
+    }
+    if (!searchReturnDateInput) {
+      console.log("can't be empty")
       return false
     }
 
     try {
-      const response = await searchTravel(searchInput)
 
-      if (!response.ok) {
+      const response = await searchTravel(searchDepartureToInput, searchDepartureDateInput, searchDepartureFromInput, 
+        searchReturnDateInput)
+
+      if (response.err) {
         throw new Error('something went wrong!')
       }
-
-      const { items } = await response.json()
-
-      const travelData = items.map(travel => ({
-        travelId: travel.id,
-        title: travel.title,
-        price: travel.price,
-        image: travel.img || ''
-      }))
-
-      setSearchedTravels(travelData)
-      setSearchInput('')
+      setSearchedTravels(response)
+      setSearchDepartureToInput('');
+      setSearchDepartureFromInput('');
+     setsearchDepartureDateInput('');
+     setsearchReturnDateInput('');
+    
     } catch (err) {
       console.error(err)
     }
   }
-
   // create function to handle saving a travel to our database
   const handleSaveTravel = async travelId => {
     // find the travel in `searchedTravels` state by the matching id
@@ -94,87 +108,126 @@ function Travel () {
       console.error(err)
     }
   }
-
   return (
     <>
       <br></br>
-      <Container fluid className='travel-section'>
-        <Particle />
-        <Container fluid className='search-content'>
+      <Particle />
+      <Container fluid className='search-content'>
         <h1 className='travel-section'>
           Lets find <strong className='purple'>Travel </strong>
         </h1>
-     
         <Form onSubmit={handleFormSubmit}>
-          <Form.Group xs={12} md={8}>
-            <Form.Control
-              name='searchInput'
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              type='text'
-              placeholder='Search for a travel by name'
-            
-            />
-          </Form.Group>
-          <br></br>
-          <Button type='submit' variant='success' size='lg'>
-            Submit Search
-          </Button>
-        </Form>
-        </Container>
-      </Container>
+          <Form.Row>
   
-      <Container >
-        {/* <p style={{ color: 'white' }}>
-          Here are Travel results of your search .
-        </p> */}
-        <h2 
-         style={{ color: 'white' }}
-         >
+  
+            <Col xs={12} md={8}>
+              <Form.Control
+                name='searchDepartureToInput'
+                value={searchDepartureToInput}
+                onChange={e => setSearchDepartureToInput(e.target.value)}
+                type='text'
+                placeholder='Departure to'
+              />
+            </Col>
+            <Col xs={12} md={8}>
+              <Form.Control
+                name='searchDepartureFromInput'
+                value={searchDepartureFromInput}
+                onChange={e => setSearchDepartureFromInput(e.target.value)}
+                type='text'
+                placeholder='Departure from'
+              />
+            </Col>
+
+            <Col xs={12} md={8}>
+              <Form.Control
+                name='searchDepartureDateInput'
+                value={searchDepartureDateInput}
+                onChange={e => setsearchDepartureDateInput(e.target.value)}
+                type='text'
+                placeholder='Departure Date (yyyy-mm-dd)'
+              />
+            </Col>
+            <Col xs={12} md={8}>
+              <Form.Control
+                name='searchReturnDateInput'
+                value={searchReturnDateInput}
+                onChange={e => setsearchReturnDateInput(e.target.value)}
+                type='text'
+                placeholder='Return Date (yyyy-mm-dd)'
+              />
+            </Col>
+            <Col xs={12} md={8}>
+              <Button type='submit' variant='success' size='lg'>
+                Submit Search
+              </Button>
+            </Col>
+          </Form.Row>
+        </Form>
+      </Container>
+
+      <Container>
+        <p style={{ color: 'white' }}></p>
+        <h2 style={{ color: 'white' }}>
           {searchedTravels.length
-            ? `Viewing ${searchedTravels.length} results:`
+            ? `Here are the ${searchedTravels.length} travel results of your search.`
             : 'Search for a travel to begin'}
         </h2>
-        <Container className='search-content' >
-        {searchedTravels.map(travel => {
-          return (
-            <Row
-              key={travel.travelId}
-              data-test-id='travel-cards-row'
-              style={{ justifyContent: 'center', paddingBottom: '10px' }}
-            >
-              <Col md={4} className='travel-cards'>
+        <Container
+          id='search-results-container'
+          className='row justify-content-lg-center'
+        >
+          {searchedTravels.map(travel => {
+            return (
+              <Col
+                id='search-results-cards'
+                data-testid={`travel-cardname-${travel.airlineName}`}
+                className='col-11 col-md-6 col-lg-3 mx-0 md-5'
+                key={travel.travelid*3}
+              >
                 <TravelCards
-                  id={travel.travelId}
-                  imgPath={travel.travel['main_image']}
+                  id={travel.travelid}
+                  imgPath={travel.airlineIMG}
                   isBlog={false}
-                  title={travel.travel['title']}
-                  price={travel.offers.primary['symbol'] && travel.offers.primary['price']}
-                  siteLink={travel.travel['link']}
+                  title={travel.airlineName}
+                  price={travel.pricingInfo}
                 />
                 {Auth.loggedIn() && (
-                  <Button
-                    disabled={savedTravelIds?.some(
-                      savedTravelId => savedTravelId === travel.travelId
-                    )}
-                    className='btn-block btn-info'
-                    onClick={() => handleSaveTravel(travel.travelId)}
-                  >
-                    {savedTravelIds?.some(
-                      savedTravelId => savedTravelId === travel.travelId
-                    )
-                      ? 'This travel has been saved!'
-                      : 'Save this Travel!'}
-                  </Button>
+                  <Col>
+                    <Button
+                      disabled={savedTravelIds?.some(
+                        savedTravelId => savedTravelId === travel.travelId
+                      )}
+                      className='btn-block btn-info'
+                      onClick={() => handleSaveTravel(travel.travelId)}
+                    >
+                       <MdFavorite /> &nbsp;
+                      {savedTravelIds?.some(
+                        savedTravelId => savedTravelId === travel.travelId
+                      )
+                        ? 'This travel has been saved!'
+                        : 'Save this Travel!'}
+                    </Button>
+
+                    <Button
+                      variant='primary'
+                      href={travel.airlineURL}
+                      target='_blank'
+                      style={{ marginLeft: '10px' }}
+                    >
+                      <CgWebsite /> &nbsp; Site Link
+                    </Button>
+                  </Col>
                 )}
               </Col>
-            </Row>
-          )
-        })}
+            )
+          })}
         </Container>
+        <br></br>
+        {/* <Button onClick={() => loadMore()}>Load More</Button> */}
       </Container>
     </>
   )
 }
 
-export default Travel
+export default Travel;

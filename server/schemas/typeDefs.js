@@ -5,7 +5,7 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
     type Product {
         _id: ID
-        title: [String]
+        title: String
         description: String
         productID: String
         image: String

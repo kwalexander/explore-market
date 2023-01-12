@@ -6,6 +6,7 @@ import Product from "./components/product/Product";
 import Travel from "./components/travel/Travel";
 import Footer from "./components/Footer";
 import ContactCards from "./components/contact/ContactCards";
+import Dashboard from "./components/dashboard/Dashboard";
 
 
 
@@ -59,6 +60,7 @@ function App() {
             <Route path="/travel" element={<Travel />} />
             <Route path="/contact" element={<ContactCards />} />
 
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
           <Footer />
