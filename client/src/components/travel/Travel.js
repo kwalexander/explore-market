@@ -113,7 +113,6 @@ function Travel () {
     <>
       <br></br>
       <br></br>
-      <br></br>
       <Particle />
       <div>
       <h1 className='travel-section'style={{color:"white"}}>
@@ -229,6 +228,7 @@ function Travel () {
             )
           })}
         </Container>
+        <br></br>
         <br></br>
         {/* <Button onClick={() => loadMore()}>Load More</Button> */}
       </Container>
