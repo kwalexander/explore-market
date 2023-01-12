@@ -10,8 +10,8 @@ function AboutUs () {
         Master <strong className='purple'>minds </strong>
       </h1>
       <p className='about-us-greeting'>
-        Meet the people working to bring you faster
-        <strong className='purple'>shopping </strong>
+        Meet the people worked to bring you faster 
+         <strong className='purple'> shopping </strong>
         experience
       </p>
       <CardColumns>
