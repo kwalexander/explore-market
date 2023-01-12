@@ -8,6 +8,7 @@ export const GET_ME = gql`
       username
       email
       savedProduct {
+        _id
         productID
         title
         image
@@ -15,6 +16,7 @@ export const GET_ME = gql`
         link
       }
       savedTravel {
+        _id
         leavingFrom
         goingTo
         airWays
