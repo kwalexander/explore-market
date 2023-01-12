@@ -29,8 +29,7 @@ export const SAVE_PRODUCT = gql`
     saveProduct(product: $product) {
       username
       email
-      productCount
-      savedProducts {
+      savedProduct {
         productID
         title
         description
@@ -48,12 +47,10 @@ export const REMOVE_PRODUCT = gql`
     removeProduct(productID: $productID) {
       username
       email
-      productCount
-      savedProducts {
+      savedProduct {
         productID
         title
         description
-        productUPC
         image
         forSale
         link
@@ -67,9 +64,7 @@ export const SAVE_TRAVEL = gql`
     saveTravel(travel: $travel) {
       username
       email
-      travelCount
-      savedTravels {
-        travelID
+      savedTravel {
         leavingFrom
         goingTo
         airWays
@@ -85,9 +80,7 @@ export const REMOVE_TRAVEL = gql`
     removeTravel(travelID: $travelID) {
       username
       email
-      travelCount
-      savedTravels {
-        travelID
+      savedTravel {
         leavingFrom
         goingTo
         airWays
