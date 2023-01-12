@@ -13,15 +13,16 @@ import { MdFavorite } from 'react-icons/md'
 
 
 function Travel () {
-  // create state for holding returned google api data
-  const [searchedTravels, setSearchedTravels] = useState([])
-
   // create state for holding our search field data
   const [searchDepartureToInput, setSearchDepartureToInput] = useState('')
   const [searchDepartureFromInput, setSearchDepartureFromInput] = useState('')
   const [searchDepartureDateInput, setsearchDepartureDateInput] = useState('')
   const [searchReturnDateInput, setsearchReturnDateInput] = useState('')
 
+  // create state for holding returned google api data
+  const [searchedTravels, setSearchedTravels] = useState([])
+//create state to loading until fetching data is return
+const [canSubmit, setcanNOTSubmit] = useState(true)
   // create state to hold saved travelId values
   const [savedTravelIds, setSavedTravelIds] = useState(getSavedTravelIds())
 
@@ -37,7 +38,6 @@ function Travel () {
   // create method to search for travels and set state on form submit
   const handleFormSubmit = async event => {
     event.preventDefault()
-
     if (!searchDepartureToInput) {
       console.log("can't be empty")
       return false
@@ -56,16 +56,20 @@ function Travel () {
     }
 
     try {
-
+      setcanNOTSubmit(false);
+      document.querySelector("#submit-button").disabled = true;
       const response = await searchTravel(searchDepartureToInput, searchDepartureDateInput, searchDepartureFromInput, 
-        searchReturnDateInput)
+      searchReturnDateInput)
 
       if (response.err) {
         throw new Error('something went wrong!')
+      }else{
+        document.querySelector("#submit-button").disabled = false;
       }
-      setSearchedTravels(response)
-      setSearchDepartureToInput('');
-      setSearchDepartureFromInput('');
+     setSearchedTravels(response)
+     setcanNOTSubmit(true);
+     setSearchDepartureToInput('');
+     setSearchDepartureFromInput('');
      setsearchDepartureDateInput('');
      setsearchReturnDateInput('');
     
@@ -162,8 +166,10 @@ function Travel () {
               />
             </Col>
             <Col xs={12} md={8}>
-              <Button type='submit' variant='success' size='lg'>
-                Submit Search
+              <Button id="submit-button" type='submit' variant='success' size='lg'>
+                {canSubmit?'Submit Search': 
+                 `Rome wasn't built in a day`
+                }
               </Button>
             </Col>
           </Form.Row>
@@ -182,6 +188,7 @@ function Travel () {
           id='search-results-container'
           className='row justify-content-lg-center'
         >
+          
           {searchedTravels.map(travel => {
             return (
               <Col

@@ -12,11 +12,14 @@ import { CgWebsite } from 'react-icons/cg'
 import { MdFavorite } from 'react-icons/md'
 
 function Product () {
-  // create state for holding returned google api data
-  const [searchedProducts, setSearchedProducts] = useState([])
-  const [visible, setVisible] =useState(3)
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('')
+  // create state for holding returned google api data
+  const [searchedProducts, setSearchedProducts] = useState([])
+  //create state to display on # product at a time
+  const [visible, setVisible] = useState(4)
+  //create state to loading until fetching data is return
+const [canSubmit, setcanNOTSubmit] = useState(true)
 
   // create state to hold saved productId values
   const [savedProductIds, setSavedProductIds] = useState(getSavedProductIds())
@@ -40,13 +43,20 @@ function Product () {
     }
 
     try {
+      
+      setcanNOTSubmit(false);
+      document.querySelector("#submit-button").disabled = true;
+
       const response = await searchProduct(searchInput)
 
       if (response.error) {
         throw new Error('something went wrong!')
+      }else{
+        document.querySelector("#submit-button").disabled = false;
       }
       setSearchedProducts(response)
 
+      setcanNOTSubmit(true);
       setSearchInput('')
     } catch (err) {
       console.error(err)
@@ -87,42 +97,50 @@ function Product () {
     } catch (err) {
       console.error(err)
     }
- 
   }
-  const showMoreItems= ()=>{
-    setVisible((prevValue)=>prevValue+3);
+  const showMoreItems = () => {
+    setVisible(prevValue => prevValue + 3)
   }
   return (
     <>
-      
       <br></br>
       <br></br>
       <Particle />
       <div>
-      <h1 className='product-section'style={{color:"white"}}>
+        <h1 className='product-section' style={{ color: 'white' }}>
           Lets find <strong className='purple'>Product </strong>
         </h1>
-      <Container fluid className='search-content' style={{marginLeft: "4em", marginRight:"auto", display:"flex", justifyContent:"center"}}>
-       
-        <Form onSubmit={handleFormSubmit}>
-          <Form.Row>
-            <Col xs={12} md={8}>
-              <Form.Control
-                name='searchInput'
-                value={searchInput}
-                onChange={e => setSearchInput(e.target.value)}
-                type='text'
-                placeholder='Search for a product by name'
-              />
-            </Col>
-            <Col xs={12} md={8}>
-              <Button type='submit' variant='success' size='lg'>
-                Submit Search
+        <Container
+          fluid
+          className='search-content'
+          style={{
+            marginLeft: '4em',
+            marginRight: 'auto',
+            display: 'flex',
+            justifyContent: 'center'
+          }}
+        >
+          <Form onSubmit={handleFormSubmit}>
+            <Form.Row>
+              <Col xs={12} md={8}>
+                <Form.Control
+                  name='searchInput'
+                  value={searchInput}
+                  onChange={e => setSearchInput(e.target.value)}
+                  type='text'
+                  placeholder='Search for a product by name'
+                />
+              </Col>
+              <Col xs={12} md={8}>
+              <Button id="submit-button" type='submit' variant='success' size='lg'>
+                {canSubmit?'Submit Search': 
+                 'Patience is virtue'
+                }
               </Button>
-            </Col>
-          </Form.Row>
-        </Form>
-      </Container>
+              </Col>
+            </Form.Row>
+          </Form>
+        </Container>
       </div>
 
       <Container>
@@ -132,69 +150,67 @@ function Product () {
             ? `Here are the ${searchedProducts.length} product results of your search.`
             : 'Search for a product to begin'}
         </h2>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-        <Container
-          id='search-results-container'
-          className='row justify-content-lg-center'
-        >
-          {/* {searchedProducts.slice(0, visible).map(product => { */}
-             {searchedProducts.map(product => {
-            return (
-              <Col
-                id='search-results-cards'
-                data-testid={`product-cardname-${product.title}`}
-                className='col-11 col-md-6 col-lg-3 mx-0 md-5'
-                key={product.productid}
-              >
-                <ProductCards
-                  id={product.productid}
-                  imgPath={product.product_img}
-                  isBlog={false}
-                  title={product.title}
-                  price={product.sale_price}
-                />
-                {Auth.loggedIn() && (
-                  <Col>
-                    <Button
-                      disabled={savedProductIds?.some(
-                        savedProductId => savedProductId === product.productId
-                      )}
-                      className='btn-block btn-info'
-                      onClick={() => handleSaveProduct(product.productId)}
-                    >
-                       <MdFavorite /> &nbsp;
-                      {savedProductIds?.some(
-                        savedProductId => savedProductId === product.productId
-                      )
-                        ? 'This product has been saved!'
-                        : 'Save this Product!'}
-                    </Button>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+          
+            <Container
+              id='search-results-container'
+              className='row justify-content-lg-center'
+            >
+              {searchedProducts.map(product => {
+                return (
+                  <Col
+                    id='search-results-cards'
+                    data-testid={`product-cardname-${product.title}`}
+                    className='col-11 col-md-6 col-lg-3 mx-0 md-5'
+                    key={product.productid}
+                  >
+                    <ProductCards
+                      id={product.productid}
+                      imgPath={product.product_img}
+                      isBlog={false}
+                      title={product.title}
+                      price={product.sale_price}
+                    />
+                    {Auth.loggedIn() && (
+                      <Col>
+                        <Button
+                          disabled={savedProductIds?.some(
+                            savedProductId => savedProductId === product.productId
+                          )}
+                          className='btn-block btn-info'
+                          onClick={() => handleSaveProduct(product.productId)}
+                        >
+                          <MdFavorite /> &nbsp;
+                          {savedProductIds?.some(
+                            savedProductId => savedProductId === product.productId
+                          )
+                            ? 'This product has been saved!'
+                            : 'Save this Product!'}
+                        </Button>
 
-                    <Button
-                      variant='primary'
-                      href={product.product_Link}
-                      target='_blank'
-                      style={{ marginLeft: '10px' }}
-                    >
-                      <CgWebsite /> &nbsp; Site Link
-                    </Button>
+                        <Button
+                          variant='primary'
+                          href={product.product_Link}
+                          target='_blank'
+                          style={{ marginLeft: '10px' }}
+                        >
+                          <CgWebsite /> &nbsp; Site Link
+                        </Button>
+                      </Col>
+                    )}
                   </Col>
-                )}
-              </Col>
-            )
-          })}
-
-        </Container>
+                )
+              })}
+            </Container>       
         {/* <br></br>
         <Button onClick={showMoreItems}>Load More</Button>  */}
       </Container>
-
     </>
   )
 }
