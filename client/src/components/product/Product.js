@@ -108,7 +108,7 @@ const [canSubmit, setcanNOTSubmit] = useState(true)
       <Particle />
       <div>
         <h1 className='product-section' style={{ color: 'white' }}>
-          Lets find <strong className='purple'>Product </strong>
+        Let's find <strong className='purple'>Product </strong>
         </h1>
         <Container
           fluid
@@ -150,10 +150,6 @@ const [canSubmit, setcanNOTSubmit] = useState(true)
             ? `Here are the ${searchedProducts.length} product results of your search.`
             : 'Search for a product to begin'}
         </h2>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
         <br></br>
         <br></br>
         <br></br>

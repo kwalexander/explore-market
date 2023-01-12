@@ -120,7 +120,7 @@ const [canSubmit, setcanNOTSubmit] = useState(true)
       <Particle />
       <div>
       <h1 className='travel-section'style={{color:"white"}}>
-          Lets find <strong className='purple'>Travel </strong>
+          Let's find your<strong className='purple'>Destination </strong>
         </h1>
       <Container fluid className='search-content'style={{marginLeft: "9em", marginRight:"auto", display:"flex", justifyContent:"center"}}>
         
