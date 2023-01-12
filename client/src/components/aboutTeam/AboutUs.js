@@ -23,9 +23,9 @@ function AboutUs () {
               className='aboutUs-card-view'
             >
               <Card.Img variant='top' src={team.imgURL} alt='card-img' />
-              <Card.Body class='about-us-card'>
+              <Card.Body className='about-us-card'>
                 <Card.Title>{team.name}</Card.Title>
-                <Card.Text class="about-me-text" style={{ textAlign: 'center' }}>{team.aboutMe}</Card.Text>
+                <Card.Text className="about-me-text" style={{ textAlign: 'center' }}>{team.aboutMe}</Card.Text>
               </Card.Body>
               <a 
                 variant='primary'
