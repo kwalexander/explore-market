@@ -94,12 +94,16 @@ function Product () {
   }
   return (
     <>
+      
+      <br></br>
       <br></br>
       <Particle />
-      <Container fluid className='search-content'>
-        <h1 className='product-section'>
+      <div>
+      <h1 className='product-section'style={{color:"white"}}>
           Lets find <strong className='purple'>Product </strong>
         </h1>
+      <Container fluid className='search-content' style={{marginLeft: "4em", marginRight:"auto", display:"flex", justifyContent:"center"}}>
+       
         <Form onSubmit={handleFormSubmit}>
           <Form.Row>
             <Col xs={12} md={8}>
@@ -119,6 +123,7 @@ function Product () {
           </Form.Row>
         </Form>
       </Container>
+      </div>
 
       <Container>
         <p style={{ color: 'white' }}></p>
@@ -127,6 +132,13 @@ function Product () {
             ? `Here are the ${searchedProducts.length} product results of your search.`
             : 'Search for a product to begin'}
         </h2>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
         <Container
           id='search-results-container'
           className='row justify-content-lg-center'

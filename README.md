@@ -1,5 +1,5 @@
 # Explore Market
-TBD
+a website where users can find and shop travel bookings and products in a single platform.
 # Table-of-Contents
   * [Deployed URL](#deployed-url)
   * [UserStory](#userstory)
@@ -19,12 +19,23 @@ TBD
 
 ## [User Story](#table-of-contents)
 ```
- TDB
+ As a user I want an application where I can explore and shop travel bookings as well as products in a single platform to have more accessibility and convenience.
 ```
 
 ## [Acceptance Criteria](#table-of-contents)
 ```
-TBD
+Use React for the front end.
+Use GraphQL with a Node.js and Express.js server.
+Use MongoDB and the Mongoose ODM for the database.
+Use queries and mutations for retrieving, adding, updating, and deleting data.
+Be deployed using Heroku (with data).
+Have a polished UI.
+Be responsive.
+Be interactive (i.e., accept and respond to user input).
+Include authentication (JWT).
+Protect sensitive API key information on the server.
+Have a clean repository that meets quality coding standards (file structure, naming conventions, best practices for class and id naming conventions, indentation, quality comments, etc.).
+Have a high-quality README (with unique name, description, technologies used, screenshot, and link to deployed application).
 ```
 
 ## [Git Repo](#table-of-contents)
@@ -66,6 +77,9 @@ NOTE: if you are copying this repo all you have to do is run
 ```
 
 # [Screenshots](#table-of-contents)
+![Screenshot of the homepage](./assets/images/homepage.png)
+![Screenshot of the travel page](./assets/images/travelsearch.png)
+![Screenshot of the product page](./assets/images/productsearch.png)
 ## [Workflow](#table-of-contents)
 ### db Schema
 ![Image at home page](/screenshots/dbschema.png)

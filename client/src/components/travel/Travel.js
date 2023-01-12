@@ -11,6 +11,7 @@ import Particle from '../Particle'
 import { CgWebsite } from 'react-icons/cg'
 import { MdFavorite } from 'react-icons/md'
 
+
 function Travel () {
   // create state for holding returned google api data
   const [searchedTravels, setSearchedTravels] = useState([])
@@ -111,11 +112,15 @@ function Travel () {
   return (
     <>
       <br></br>
+      <br></br>
+      <br></br>
       <Particle />
-      <Container fluid className='search-content'>
-        <h1 className='travel-section'>
+      <div>
+      <h1 className='travel-section'style={{color:"white"}}>
           Lets find <strong className='purple'>Travel </strong>
         </h1>
+      <Container fluid className='search-content'style={{marginLeft: "9em", marginRight:"auto", display:"flex", justifyContent:"center"}}>
+        
         <Form onSubmit={handleFormSubmit}>
           <Form.Row>
   
@@ -165,15 +170,16 @@ function Travel () {
           </Form.Row>
         </Form>
       </Container>
+      </div>
 
-      <Container>
-        <p style={{ color: 'white' }}></p>
+      <Container style={{ marginRight:"auto", display:"block", justifyContent:"center"}}>
+        <p style={{ color: 'white'}}></p>
         <h2 style={{ color: 'white' }}>
           {searchedTravels.length
             ? `Here are the ${searchedTravels.length} travel results of your search.`
-            : 'Search for a travel to begin'}
+            : 'Search for travel to begin'}
         </h2>
-        <Container
+        <Container 
           id='search-results-container'
           className='row justify-content-lg-center'
         >
