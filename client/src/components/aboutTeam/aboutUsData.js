@@ -24,8 +24,8 @@ const contact = {
       name: 'Gladimar Villamil',
       imgURL: 'https://avatars.githubusercontent.com/u/98204419?v=4',
       portfolio: '',
-      linkedin: '',
-      aboutMe: '',
+      linkedin: 'https://www.linkedin.com/in/gladi-o-7229a81b5/',
+      aboutMe: 'I work in entertainment, in legal and development, and I am passionate about producing quality and trasnparent entertainment for online platforms.',
       gitHub: 'https://github.com/Gladi023'
     },
     {

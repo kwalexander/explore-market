@@ -5,15 +5,18 @@ import {AiFillGithub,AiFillLinkedin} from "react-icons/ai";
 import {RiProfileLine} from "react-icons/ri";
 function AboutUs () {
   return (
+    <div style={{fontSize:'large'}}>
     <Container fluid className='search-content'>
       <h1 className='product-section'>
         Master <strong className='purple'>minds </strong>
       </h1>
-      <p className='about-us-greeting'>
+      <br></br>
+      <p className='about-us-greeting'style={{fontSize:'xx-large'}}>
         Meet the people worked to bring you faster 
          <strong className='purple'> shopping </strong>
         experience
       </p>
+      <br></br>
       <CardColumns  className='aboutUs-CardColumns'>
         {aboutUs.cardData.map((team, index) => {
           return (
@@ -56,6 +59,7 @@ function AboutUs () {
         })}
       </CardColumns>
     </Container>
+    </div>
   )
 };
 

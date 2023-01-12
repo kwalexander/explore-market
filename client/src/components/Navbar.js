@@ -39,7 +39,7 @@ function NavBar() {
   window.addEventListener('scroll', scrollHandler)
 
   return (
-    <>
+    <div >
       <Navbar
         expanded={showModal}
         fixed='top'
@@ -98,14 +98,14 @@ function NavBar() {
 
                 </>
               ) : (
-                <>
+                <div style={{ fontSize: '1.4em', color:'purple', display:'flex', marginLeft:'auto', marginRight:'auto' }} >
                   <Nav.Link
                     data-testid='nav-home'
                     as={Link}
                     to={'/'}
                     onClick={() => setShowModal(false)}
                   >
-                    <AiOutlineHome style={{ marginBottom: '2px' }} /> Home
+                    <AiOutlineHome style={{ marginBottom: '2px', color:'purple' }} /> Home 
                   </Nav.Link>
 
 
@@ -116,7 +116,7 @@ function NavBar() {
                     onClick={() => setShowModal(false)}
                   >
                     <AiOutlineTeam
-                      style={{ marginBottom: '2px' }}
+                      style={{ marginBottom: '2px', color:'purple' }}
                     />{' '}
                     About Us
                   </Nav.Link>
@@ -124,10 +124,10 @@ function NavBar() {
 
 
                   <Nav.Link data-testid="login_or_signUp" onClick={() => setShowModal(true)}>
-                    <AiOutlineUserAdd style={{ fontSize: '1.2em' }} />{' '}
-                    <AiFillStar style={{ fontSize: '1.1em' }} />
+                    <AiOutlineUserAdd style={{  color: 'white' }} />{' '}
+                    <AiFillStar style={{  color:'white' }} />
                   </Nav.Link>
-                </>
+                </div>
 
               )}
 
@@ -168,7 +168,7 @@ function NavBar() {
           </Modal.Body>
         </Tab.Container>
       </Modal>
-    </>
+    </div>
   );
 };
 

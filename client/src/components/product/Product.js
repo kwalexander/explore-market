@@ -97,6 +97,7 @@ function Product () {
       
       <br></br>
       <br></br>
+      <br></br>
       <Particle />
       <div>
       <h1 className='product-section'style={{color:"white"}}>
@@ -132,9 +133,6 @@ function Product () {
             ? `Here are the ${searchedProducts.length} product results of your search.`
             : 'Search for a product to begin'}
         </h2>
-      <br></br>
-      <br></br>
-      <br></br>
       <br></br>
       <br></br>
       <br></br>

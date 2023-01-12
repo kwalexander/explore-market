@@ -113,6 +113,7 @@ function Travel () {
     <>
       <br></br>
       <br></br>
+      <br></br>
       <Particle />
       <div>
       <h1 className='travel-section'style={{color:"white"}}>
