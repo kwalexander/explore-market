@@ -17,12 +17,22 @@ function Dashboard (props) {
             <h1> Loading ... </h1>
         ) : (
             <>
-            <h1 className="mt-5 mb-5">Hello {data.me.username}</h1>
-            <h1 className="mt-5 mb-5">Saved Products</h1>
-            { data.me.savedProduct.length ? data.me.savedProduct.map(product => {
+            <p className='about-us-greeting mt-5'style={{fontSize:'xx-large'}}>
+        Hello
+         <strong className='purple'> {data.me.username} </strong>
+         , here are your saved items
+      </p>
+            <h1 className='product-section' style={{ color: 'white' }}>
+        Saved <strong className='purple'>Products </strong>
+        </h1>
+            { data.me.savedProduct.length ? (
+                <>
+                <Container>
+                    <Row>
+                {data.me.savedProduct.map(product => {
                 return (
                     <Col 
-                        className='col-11 col-md-6 col-lg-3 mx-0 md-5'
+                        className='col-3'
                         key={product._id}
                         >
                             <ProductCards
@@ -42,15 +52,24 @@ function Dashboard (props) {
                             </Button>
                     
                     </Col>
-                )
-            }) : (
+                )})}
+            </Row>
+            </Container>
+            </>
+            ) : (
                 <h2>no saved products yet</h2>
             )}
-            <h1 className="mt-5 mb-5">Saved Trips</h1>
-            { data.me.savedTravel.length ? data.me.savedTravel.map(trip => {
+             <h1 className='product-section' style={{ color: 'white' }}>
+        Saved <strong className='purple'>Trips </strong>
+        </h1>
+            { data.me.savedTravel.length ? (
+                <>
+                <Container>
+                    <Row>
+                {data.me.savedTravel.map(trip => {
                 return (
                     <Col 
-                    className='col-11 col-md-6 col-lg-3 mx-0 md-5'
+                    className='col-3'
                     key={trip._id}
                     >
                         <ProductCards
@@ -70,7 +89,12 @@ function Dashboard (props) {
                         </Button>
                     </Col>
                 )
-            }) : (
+            })
+         }
+         </Row>
+         </Container>
+         </>
+         ) : (
                 <h2>no saved trips yet</h2>
             )}
             </>
