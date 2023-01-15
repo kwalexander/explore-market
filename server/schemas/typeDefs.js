@@ -1,19 +1,20 @@
 const { gql } = require('apollo-server-express');
 
 // typeDefs
+//PRODUCT MIght not need description
 const typeDefs = gql`
     type Product {
-        _id: productID
-        title: [String]
+        _id: ID
+        title: String
         description: String
-        productUPC: String
+        productID: String
         image: String
         forSale: String
         link: String
    
     }
     type Travel {
-        _id: travelID
+        _id: ID
         leavingFrom: String
         goingTo: String
         airWays: String
@@ -25,7 +26,7 @@ const typeDefs = gql`
         username: String
         email: String
         savedProduct: [Product] 
-        saveTravel: [Travel]        
+        savedTravel: [Travel]        
     }
     type Query {
         me: User
@@ -35,7 +36,7 @@ const typeDefs = gql`
     user: User
     }
     input SavedProductInput {
-        title: [String]
+        title: String
         description: String
         productID: String
         image: String
@@ -53,10 +54,10 @@ const typeDefs = gql`
     type Mutation {
         login(email: String!, password: String!): Auth
         addUser(username: String!, email: String!, password: String!): Auth
-        saveProduct(product: SavedProductInput): User
+        saveProduct(newProduct: SavedProductInput!): User
         removeProduct(productID: String!): User
-        saveTravel(travel: SavedTravelInput): User
-        removeTravel(travelID: String!): User
+        saveTravel(travel: SavedTravelInput!): User
+        removeTravel(_id: String!): User
 }
 `;
 

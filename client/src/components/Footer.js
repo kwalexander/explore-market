@@ -6,7 +6,10 @@ function Footer() {
   let date = new Date();
   let year = date.getFullYear();
   return (
+
     <Container data-testid="portfolio-footer" fluid className="footer">
+          
+      <br></br>
       <Row>
         <Col md="4" className="footer-copywright">
           <h3>Kabir Faisal, Cameron Kopp, Kaspar Alexander, Gladi Vill</h3>

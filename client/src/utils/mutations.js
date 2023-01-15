@@ -24,17 +24,15 @@ export const ADD_USER = gql`
   }
 `;
 
-export const SAVE_Product = gql`
+export const SAVE_PRODUCT = gql`
   mutation saveProduct($product: SavedProductInput!) {
-    saveProduct(product: $product) {
+    saveProduct(newProduct: $product) {
       username
       email
-      productCount
-      savedProducts {
+      savedProduct {
         productID
         title
         description
-        productUPC
         image
         forSale
         link
@@ -43,17 +41,15 @@ export const SAVE_Product = gql`
   }
 `;
 
-export const REMOVE_product = gql`
+export const REMOVE_PRODUCT = gql`
   mutation removeProduct($productID: String!) {
     removeProduct(productID: $productID) {
       username
       email
-      productCount
-      savedProducts {
+      savedProduct {
         productID
         title
         description
-        productUPC
         image
         forSale
         link
@@ -62,14 +58,12 @@ export const REMOVE_product = gql`
   }
 `;
 
-export const SAVE_Travel = gql`
+export const SAVE_TRAVEL = gql`
   mutation saveTravel($travel: SavedTravelInput!) {
     saveTravel(travel: $travel) {
       username
       email
-      travelCount
-      savedTravels {
-        travelID
+      savedTravel {
         leavingFrom
         goingTo
         airWays
@@ -80,14 +74,12 @@ export const SAVE_Travel = gql`
   }
 `;
 
-export const REMOVE_travel = gql`
+export const REMOVE_TRAVEL = gql`
   mutation removeTravel($travelID: String!) {
     removeTravel(travelID: $travelID) {
       username
       email
-      travelCount
-      savedTravels {
-        travelID
+      savedTravel {
         leavingFrom
         goingTo
         airWays
