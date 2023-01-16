@@ -107,14 +107,15 @@ const [canSubmit, setcanNOTSubmit] = useState(true)
     }
   }
   const showMoreItems = () => {
-    setVisible(prevValue => prevValue + 3)
+    console.log("loading more + 4")
+    setVisible((prevValue) => prevValue + 4)
   }
   return (
     <>
       <br></br>
       <br></br>
       <br></br>
-      <Particle />
+      {/* <Particle /> */}
       <div>
         <h1 className='product-section' style={{ color: 'white' }}>
         Let's find <strong className='purple'>Product </strong>
@@ -162,20 +163,20 @@ const [canSubmit, setcanNOTSubmit] = useState(true)
         <br></br>
         <br></br>
         <br></br>
-          
+      
             <Container
               id='search-results-container'
               className='row justify-content-lg-center'
             >
-              {searchedProducts.map(product => {
+              {searchedProducts.slice(0, visible).map(product=> {
                 return (
                   <Col
                     id='search-results-cards'
-                    data-testid={`product-cardname-${product.title}`}
                     className='col-11 col-md-6 col-lg-3 mx-0 md-5'
-                    key={product.productid}
+                    
                   >
                     <ProductCards
+                      key={product.productid}
                       id={product.productid}
                       imgPath={product.product_img}
                       isBlog={false}
@@ -211,11 +212,13 @@ const [canSubmit, setcanNOTSubmit] = useState(true)
                     )}
                   </Col>
                 )
+                
               })}
+
+<br></br>
+        <Button onClick={showMoreItems}>Load More</Button> 
             </Container>       
-        {/* <br></br>
-        <Button onClick={showMoreItems}>Load More</Button>  */}
-      </Container>
+            </Container>
     </>
   )
 }
