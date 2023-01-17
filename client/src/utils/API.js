@@ -76,7 +76,7 @@ export const deleteTravel = (travelID, token) => {
 // make a search to  products api
 export async function  searchProduct(query)  {
   //return data;
-  var Target_Token="6B433687ADCA40CF867E85CE4A429140" ;
+  var Target_Token="9A71E395DCBC453FA894275996106770" ;
   var queryItem = `https://api.redcircleapi.com/request?api_key=${Target_Token}&search_term=${query}&type=search&rating=five_star&page=1&include_out_of_stock=false`;
  
   const target_search_Results= [];

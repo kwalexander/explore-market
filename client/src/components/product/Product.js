@@ -56,9 +56,10 @@ function Product () {
       }
       setSearchedProducts(response)
 
-      if(response.length >4)
-      {
-        document.querySelector("#product-loadMore-button").style.setProperty("visibility", "visible");;
+      if (response.length > 4) {
+        document
+          .querySelector('#product-loadMore-button')
+          .style.setProperty('visibility', 'visible')
       }
       setSearchedProducts(response)
 
@@ -221,12 +222,16 @@ function Product () {
               </Col>
             )
           })}
-
-          <br></br>
-          <Button 
-          id="product-loadMore-button"
-          data-testid="results-load-more" 
-          onClick={showMoreItems}>Load More</Button>
+          <Container>
+            <br></br>
+            <Button
+              id='product-loadMore-button'
+              data-testid='results-load-more'
+              onClick={showMoreItems}
+            >
+              Load More
+            </Button>
+          </Container>
         </Container>
       </Container>
     </>
