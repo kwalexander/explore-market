@@ -7,7 +7,7 @@ import { saveTravelIds, getSavedTravelIds } from '../../utils/localStorage'
 import { useMutation } from '@apollo/client'
 import { SAVE_TRAVEL } from '../../utils/mutations'
 import { GET_ME } from '../../utils/queries'
-import Particle from '../Particle'
+
 import { CgWebsite } from 'react-icons/cg'
 import { MdFavorite } from 'react-icons/md'
 
@@ -21,6 +21,8 @@ function Travel () {
 
   // create state for holding returned google api data
   const [searchedTravels, setSearchedTravels] = useState([])
+   //create state to display on # product at a time
+   const [visible, setVisible] = useState(4)
 //create state to loading until fetching data is return
 const [canSubmit, setcanNOTSubmit] = useState(true)
   // create state to hold saved travelId values
@@ -66,7 +68,14 @@ const [canSubmit, setcanNOTSubmit] = useState(true)
       }else{
         document.querySelector("#submit-button").disabled = false;
       }
-     setSearchedTravels(response)
+
+      if(response.length >4)
+      {
+        document.querySelector("#travel-loadMore-button").style.setProperty("visibility", "visible");;
+      }
+     
+
+      setSearchedTravels(response)
      setcanNOTSubmit(true);
      setSearchDepartureToInput('');
      setSearchDepartureFromInput('');
@@ -120,12 +129,17 @@ const [canSubmit, setcanNOTSubmit] = useState(true)
       console.error(err)
     }
   }
+
+  const showMoreItems = () => {
+    console.log("loading more + 4")
+    setVisible((prevValue) => prevValue + 4)
+  }
   return (
     <>
       <br></br>
       <br></br>
       <br></br>
-      <Particle />
+ 
       <div>
       <h1 className='travel-section'style={{color:"white"}}>
           Let's find your<strong className='purple'>Destination </strong>
@@ -197,15 +211,15 @@ const [canSubmit, setcanNOTSubmit] = useState(true)
           className='row justify-content-lg-center'
         >
           
-          {searchedTravels.map(travel => {
+          {searchedTravels.slice(0, visible).map(travel => {
             return (
               <Col
                 id='search-results-cards'
-                data-testid={`travel-cardname-${travel.airlineName}`}
                 className='col-11 col-md-6 col-lg-3 mx-0 md-5'
-                key={travel.travelid*3}
+               
               >
                 <TravelCards
+                 key={travel.index}
                   id={travel.travelid}
                   imgPath={travel.airlineIMG}
                   isBlog={false}
@@ -242,11 +256,14 @@ const [canSubmit, setcanNOTSubmit] = useState(true)
               </Col>
             )
           })}
+            <Container>
+          <Button id="travel-loadMore-button" 
+           data-testid="results-load-more" 
+           onClick={showMoreItems}>Load More</Button>
+          </Container>
+           </Container>
+         
         </Container>
-        <br></br>
-        <br></br>
-        {/* <Button onClick={() => loadMore()}>Load More</Button> */}
-      </Container>
     </>
   )
 }

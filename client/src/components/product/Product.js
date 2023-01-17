@@ -7,7 +7,7 @@ import { saveProductIds, getSavedProductIds } from '../../utils/localStorage'
 import { useMutation } from '@apollo/client'
 import { SAVE_PRODUCT } from '../../utils/mutations'
 import { GET_ME } from '../../utils/queries'
-import Particle from '../Particle'
+
 import { CgWebsite } from 'react-icons/cg'
 import { MdFavorite } from 'react-icons/md'
 
@@ -18,8 +18,9 @@ function Product () {
   const [searchedProducts, setSearchedProducts] = useState([])
   //create state to display on # product at a time
   const [visible, setVisible] = useState(4)
+
   //create state to loading until fetching data is return
-const [canSubmit, setcanNOTSubmit] = useState(true)
+  const [canSubmit, setcanNOTSubmit] = useState(true)
 
   // create state to hold saved productId values
   const [savedProductIds, setSavedProductIds] = useState(getSavedProductIds())
@@ -43,20 +44,25 @@ const [canSubmit, setcanNOTSubmit] = useState(true)
     }
 
     try {
-      
-      setcanNOTSubmit(false);
-      document.querySelector("#submit-button").disabled = true;
+      setcanNOTSubmit(false)
+      document.querySelector('#submit-button').disabled = true
 
       const response = await searchProduct(searchInput)
 
       if (response.error) {
         throw new Error('something went wrong!')
-      }else{
-        document.querySelector("#submit-button").disabled = false;
+      } else {
+        document.querySelector('#submit-button').disabled = false
       }
       setSearchedProducts(response)
 
-      setcanNOTSubmit(true);
+      if(response.length >4)
+      {
+        document.querySelector("#product-loadMore-button").style.setProperty("visibility", "visible");;
+      }
+      setSearchedProducts(response)
+
+      setcanNOTSubmit(true)
       setSearchInput('')
     } catch (err) {
       console.error(err)
@@ -68,7 +74,7 @@ const [canSubmit, setcanNOTSubmit] = useState(true)
     const productToSave = searchedProducts.find(
       product => product.productId === productId
     )
-    console.log(productToSave);
+    console.log(productToSave)
     const productVars = {
       title: productToSave.title,
       description: productToSave.product_rating,
@@ -77,7 +83,7 @@ const [canSubmit, setcanNOTSubmit] = useState(true)
       forSale: productToSave.sale_price,
       link: productToSave.product_Link
     }
-    console.log(productVars);
+    console.log(productVars)
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null
 
@@ -86,7 +92,7 @@ const [canSubmit, setcanNOTSubmit] = useState(true)
     }
 
     try {
-      await saveProduct({ variables: { product: productVars }})
+      await saveProduct({ variables: { product: productVars } })
       //   update: cache => {
       //     const { me } = cache.readQuery({ query: GET_ME })
       //     // console.log(me)
@@ -107,8 +113,8 @@ const [canSubmit, setcanNOTSubmit] = useState(true)
     }
   }
   const showMoreItems = () => {
-    console.log("loading more + 4")
-    setVisible((prevValue) => prevValue + 4)
+    console.log('loading more + 4')
+    setVisible(prevValue => prevValue + 2)
   }
   return (
     <>
@@ -118,7 +124,7 @@ const [canSubmit, setcanNOTSubmit] = useState(true)
       {/* <Particle /> */}
       <div>
         <h1 className='product-section' style={{ color: 'white' }}>
-        Let's find <strong className='purple'>Product </strong>
+          Let's find <strong className='purple'>Product </strong>
         </h1>
         <Container
           fluid
@@ -142,11 +148,14 @@ const [canSubmit, setcanNOTSubmit] = useState(true)
                 />
               </Col>
               <Col xs={12} md={8}>
-              <Button id="submit-button" type='submit' variant='success' size='lg'>
-                {canSubmit?'Submit Search': 
-                 'Patience is virtue'
-                }
-              </Button>
+                <Button
+                  id='submit-button'
+                  type='submit'
+                  variant='success'
+                  size='lg'
+                >
+                  {canSubmit ? 'Submit Search' : 'Patience is virtue'}
+                </Button>
               </Col>
             </Form.Row>
           </Form>
@@ -163,64 +172,65 @@ const [canSubmit, setcanNOTSubmit] = useState(true)
         <br></br>
         <br></br>
         <br></br>
-      
-            <Container
-              id='search-results-container'
-              className='row justify-content-lg-center'
-            >
-              {searchedProducts.slice(0, visible).map(product=> {
-                return (
-                  <Col
-                    id='search-results-cards'
-                    className='col-11 col-md-6 col-lg-3 mx-0 md-5'
-                    
-                  >
-                    <ProductCards
-                      key={product.productid}
-                      id={product.productid}
-                      imgPath={product.product_img}
-                      isBlog={false}
-                      title={product.title}
-                      price={product.sale_price}
-                    />
-                    {Auth.loggedIn() && (
-                      <Col>
-                        <Button
-                          disabled={savedProductIds?.some(
-                            savedProductId => savedProductId === product.productId
-                          )}
-                          className='btn-block btn-info'
-                          onClick={() => handleSaveProduct(product.productId)}
-                        >
-                          <MdFavorite /> &nbsp;
-                          {savedProductIds?.some(
-                            savedProductId => savedProductId === product.productId
-                          )
-                            ? 'This product has been saved!'
-                            : 'Save this Product!'}
-                        </Button>
 
-                        <Button
-                          variant='primary'
-                          href={product.product_Link}
-                          target='_blank'
-                          style={{ marginLeft: '10px' }}
-                        >
-                          <CgWebsite /> &nbsp; Site Link
-                        </Button>
-                      </Col>
-                    )}
+        <Container
+          id='search-results-container'
+          className='row justify-content-lg-center'
+        >
+          {searchedProducts.slice(0, visible).map(product => {
+            return (
+              <Col
+                id='search-results-cards'
+                className='col-11 col-md-6 col-lg-3 mx-0 md-5'
+              >
+                <ProductCards
+                  key={product.productid}
+                  id={product.productid}
+                  imgPath={product.product_img}
+                  isBlog={false}
+                  title={product.title}
+                  price={product.sale_price}
+                />
+                {Auth.loggedIn() && (
+                  <Col>
+                    <Button
+                      disabled={savedProductIds?.some(
+                        savedProductId => savedProductId === product.productId
+                      )}
+                      className='btn-block btn-info'
+                      onClick={() => handleSaveProduct(product.productId)}
+                    >
+                      <MdFavorite /> &nbsp;
+                      {savedProductIds?.some(
+                        savedProductId => savedProductId === product.productId
+                      )
+                        ? 'This product has been saved!'
+                        : 'Save this Product!'}
+                    </Button>
+
+                    <Button
+                      variant='primary'
+                      href={product.product_Link}
+                      target='_blank'
+                      style={{ marginLeft: '10px' }}
+                    >
+                      <CgWebsite /> &nbsp; Site Link
+                    </Button>
                   </Col>
-                )
-                
-              })}
+                )}
+              </Col>
+            )
+          })}
 
-<br></br>
-        <Button onClick={showMoreItems}>Load More</Button> 
-            </Container>       
-            </Container>
+          <br></br>
+          <Button 
+          id="product-loadMore-button"
+          data-testid="results-load-more" 
+          onClick={showMoreItems}>Load More</Button>
+        </Container>
+      </Container>
     </>
   )
 }
 
-export default Product;
+export default Product

@@ -439,3 +439,6 @@ button:focus {
   padding: 15px;
   
 }
+#travel-loadMore-button, #product-loadMore-button{
+  visibility: hidden;
+}
